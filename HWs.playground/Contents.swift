@@ -1,99 +1,134 @@
 import UIKit
 
-let multilineString = """
+let dollarsArray = [1, 2, 5, 10, 20, 50, 100, 1000]
 
- Скажи-ка, дядя, ведь недаром
- Москва, спаленная пожаром,
- Французу отдана?
- Ведь были ж схватки боевые,
- Да, говорят, еще какие!
- Недаром помнит вся Россия
- Про день Бородина!
+let sum = dollarsArray.reduce(0, +)
+
+print(sum)
+
+
+let daysArray = [31, 28, 31, 30, 31, 30, 31, 31, 31, 30, 31, 30, 31]
+
+for days in daysArray {
+    print(days)
+}
+
+
+let monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+for monthDays in 0..<monthArray.count {
+    print("В месяце \(monthArray[monthDays]) - \(daysArray[monthDays]) дней.")
+}
+
+
+let monthTuples = ["January": 31, "February": 28, "March": 31, "April": 30, "May": 31, "June": 30, "July": 31, "August": 31, "September": 31, "October": 31, "November": 30, "December": 31]
+
+for (key, value) in monthTuples {
+    print("В месяце \(key) - \(value) дней.")
+}
+
+
+
+var index = monthArray.count - 1
  
- """
-
-
-var name = "Sergey"
-
-for i in name {
-    print(i)
+for reversed in 0..<monthArray.count {
+    print("В месяце \(monthArray[(reversed + index)]) - \(daysArray[reversed + index]) дней.")
+    index -= 2
 }
 
 
-name += " Angelov"
+var array = ["array"]
 
-let age = 27
-
-print("Hi! My name is \(name). I'm \(age) years old.")
-
-
-let greetigs = "Hello there!"
-
-var secondGreetings = ""
-
-for char in greetigs {
-    if char == " " {
-        continue
+for i in array {
+    while array.count != 30 {
+        array.append(i)
     }
-    secondGreetings.append(char)
 }
 
-print(secondGreetings)
+print(array)
 
 
-let reversed = String(greetigs.reversed())
+let randomArray: [Any] = [35, true, 28, false, "Hello", "Hi", 1, "Yes"]
 
-print(reversed)
+var newArray = [String]()
+
+for i in randomArray {
+    if let string = i as? String {
+        newArray.append(string)
+    }
+}
+
+print(newArray)
 
 
-if greetigs.contains("o") {
+let arrayTwoD = [["Hello", "Hi"], ["Привет"], [".", "Как","твои"], ["дела?"]]
+var arrayOneD = [String]()
+
+for array in arrayTwoD {
+    for string in array {
+        arrayOneD.append(string)
+    }
+}
+
+print(arrayOneD)
+
+
+if arrayOneD.isEmpty {
     print("Yes")
 } else {
     print("No")
 }
 
 
-let time = "23:51:01"
-
-let elements = time.components(separatedBy: ":")
-
-for element in elements {
-    print(Int(element) ?? 0)
+if arrayOneD.contains("Привет") {
+    print("Содержит слово привет")
+} else {
+    print("Не содержит слово привет")
 }
 
-var elementOne = ""
-var elementTwo = ""
-var elementThree = ""
 
-var counter = 0
+var arrayInt = [Int]()
 
-for char in time {
-    if String(char) != ":" {
-        switch counter {
-        case 0: elementOne += String(char)
-        case 1: elementTwo += String(char)
-        default: elementThree += String(char)
-        }
-    } else {
-        counter += 1
-    }
+for i in 1...10 {
+    arrayInt.append(i)
 }
 
-Int(elementOne)
-Int(elementTwo)
-Int(elementThree)
+print(arrayInt)
+
+let newArrayInt = arrayInt[3...8]
+print(newArrayInt)
 
 
-let pi = 3.14159
-let formatedPi = String(format: "%.2f", pi)
+let secondArrayInt = arrayInt[3..<9]
+print(secondArrayInt)
 
 
-var letters = "AaBbCc"
+var cars = ["Audi", "Mercedes", "Maserati", "Lamborghini", "Porsche", "BMW"]
 
-letters.uppercased()
+cars.sort()
 
-letters.removeFirst()
+cars.sort(by: >)
 
-letters.removeLast()
 
-letters.append("!")
+/*
+ sort - меняет исходный массив
+ sorted - возвращает отсортированный массив, не меняя исходный
+ */
+
+
+let arrayNumbers = [22, 41, 23, 80, 33, 83, 56, 42, 11, 98, 120, 6, 84, 1]
+
+arrayNumbers.min()
+arrayNumbers.max()
+arrayNumbers.first
+arrayNumbers.last
+arrayNumbers.dropLast()
+arrayNumbers.dropFirst()
+
+print(arrayNumbers)
+
+/*
+ remove - удаляет и возвращает элемент
+ drop - возвращает новый массив без элемента, не изменяя текущий
+ */
+
