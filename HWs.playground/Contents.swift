@@ -1,134 +1,87 @@
 import UIKit
 
-let dollarsArray = [1, 2, 5, 10, 20, 50, 100, 1000]
+var responseMessages = [Int: String]()
 
-let sum = dollarsArray.reduce(0, +)
+responseMessages.updateValue("Internal server error", forKey: 500)
+responseMessages.updateValue("File not found", forKey: 404)
+responseMessages.updateValue("Access forbidden", forKey: 403)
+responseMessages.updateValue("Ok", forKey: 200)
 
-print(sum)
+print(responseMessages)
 
 
-let daysArray = [31, 28, 31, 30, 31, 30, 31, 31, 31, 30, 31, 30, 31]
+var httpResponseCodes = [200, 403, 301]
 
-for days in daysArray {
-    print(days)
+for i in httpResponseCodes {
+    if let value = responseMessages[i] {
+        print("\(i): \(value)")
+    } else {
+        print("Unknown error \(i)")
+    }
 }
 
 
-let monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+responseMessages.keys.sorted()
 
-for monthDays in 0..<monthArray.count {
-    print("В месяце \(monthArray[monthDays]) - \(daysArray[monthDays]) дней.")
+
+for (key, value) in responseMessages {
+    print("\(key): \(value)")
 }
 
 
-let monthTuples = ["January": 31, "February": 28, "March": 31, "April": 30, "May": 31, "June": 30, "July": 31, "August": 31, "September": 31, "October": 31, "November": 30, "December": 31]
+var dict = ["primes": [2, 13, 15, 7, 11, 3, 5],
+            "triangular": [21, 6, 3, 10, 15, 1, 28],
+            "hexagonal": [1, 91, 15, 28, 45, 66, 6]]
 
-for (key, value) in monthTuples {
-    print("В месяце \(key) - \(value) дней.")
+for (_, value) in dict {
+    print(value.sorted())
 }
 
 
+let dictOne = ["a": "b"]
+let dictTwo = ["c": "d"]
+var dictThree = [String: String]()
 
-var index = monthArray.count - 1
+for (key, value) in dictOne {
+    dictThree[key] = value
+}
+
+for (key, value) in dictTwo {
+    dictThree[key] = value
+}
+
+print(dictThree)
+
+
+var a = 1
+var b = 2
+var c = a
+a = b
+b = c
+
+print(a, b)
+
+b = a - b
+a -= b
+b += a
+
+print(a, b)
+
+
+/*
+ Dictionary - неупорядоченная коллекция, которая хранит в себе пары ключ-значение.
  
-for reversed in 0..<monthArray.count {
-    print("В месяце \(monthArray[(reversed + index)]) - \(daysArray[reversed + index]) дней.")
-    index -= 2
-}
-
-
-var array = ["array"]
-
-for i in array {
-    while array.count != 30 {
-        array.append(i)
-    }
-}
-
-print(array)
-
-
-let randomArray: [Any] = [35, true, 28, false, "Hello", "Hi", 1, "Yes"]
-
-var newArray = [String]()
-
-for i in randomArray {
-    if let string = i as? String {
-        newArray.append(string)
-    }
-}
-
-print(newArray)
-
-
-let arrayTwoD = [["Hello", "Hi"], ["Привет"], [".", "Как","твои"], ["дела?"]]
-var arrayOneD = [String]()
-
-for array in arrayTwoD {
-    for string in array {
-        arrayOneD.append(string)
-    }
-}
-
-print(arrayOneD)
-
-
-if arrayOneD.isEmpty {
-    print("Yes")
-} else {
-    print("No")
-}
-
-
-if arrayOneD.contains("Привет") {
-    print("Содержит слово привет")
-} else {
-    print("Не содержит слово привет")
-}
-
-
-var arrayInt = [Int]()
-
-for i in 1...10 {
-    arrayInt.append(i)
-}
-
-print(arrayInt)
-
-let newArrayInt = arrayInt[3...8]
-print(newArrayInt)
-
-
-let secondArrayInt = arrayInt[3..<9]
-print(secondArrayInt)
-
-
-var cars = ["Audi", "Mercedes", "Maserati", "Lamborghini", "Porsche", "BMW"]
-
-cars.sort()
-
-cars.sort(by: >)
-
-
-/*
- sort - меняет исходный массив
- sorted - возвращает отсортированный массив, не меняя исходный
+ Ключи должны быть хешируемыми, значения могут быть любыми.
+ 
+ Dictionary - структура.
+ 
+ Hashable where для value Hashable, потому что ключи и так конформят хешебл. Если значения не будут конформить хешебл - словарь тоже.
+ Collection - потому что коллекция, обращение по индексу (ключу).
+ Sequence - для итерации по ключам и значениям.
+ CustomReflectable - для отзеркаленной копии.
+ ExpressibleByDictionaryLiteral - для создания словаря с помощью словарного литерала.
+ CustomStringConvertible, CustomDebugStringConvertible - описание содержимого.
+ Equatable, если value конформит Equatable. Для сравнения двух словарей.
+ Encodable, where key: encodable. Для кодирования словаря.
+ Decodable, where key: decodable. Для декодирования.
  */
-
-
-let arrayNumbers = [22, 41, 23, 80, 33, 83, 56, 42, 11, 98, 120, 6, 84, 1]
-
-arrayNumbers.min()
-arrayNumbers.max()
-arrayNumbers.first
-arrayNumbers.last
-arrayNumbers.dropLast()
-arrayNumbers.dropFirst()
-
-print(arrayNumbers)
-
-/*
- remove - удаляет и возвращает элемент
- drop - возвращает новый массив без элемента, не изменяя текущий
- */
-
