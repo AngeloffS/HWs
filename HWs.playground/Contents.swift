@@ -9,8 +9,8 @@ print(sum)
 
 let daysArray = [31, 28, 31, 30, 31, 30, 31, 31, 31, 30, 31, 30, 31]
 
-for days in daysArray {
-    print(days)
+for day in daysArray {
+    print(day)
 }
 
 
@@ -39,9 +39,9 @@ for reversed in 0..<monthArray.count {
 
 var array = ["array"]
 
-for i in array {
+for word in array {
     while array.count != 30 {
-        array.append(i)
+        array.append(word)
     }
 }
 
@@ -52,13 +52,13 @@ let randomArray: [Any] = [35, true, 28, false, "Hello", "Hi", 1, "Yes"]
 
 var newArray = [String]()
 
-for i in randomArray {
-    if let string = i as? String {
-        newArray.append(string)
-    }
+
+
+for object in randomArray where object is String {
+    
+    print(object)
 }
 
-print(newArray)
 
 
 let arrayTwoD = [["Hello", "Hi"], ["Привет"], [".", "Как","твои"], ["дела?"]]
@@ -89,8 +89,8 @@ if arrayOneD.contains("Привет") {
 
 var arrayInt = [Int]()
 
-for i in 1...10 {
-    arrayInt.append(i)
+for number in 1...10 {
+    arrayInt.append(number)
 }
 
 print(arrayInt)
@@ -131,4 +131,3 @@ print(arrayNumbers)
  remove - удаляет и возвращает элемент
  drop - возвращает новый массив без элемента, не изменяя текущий
  */
-
