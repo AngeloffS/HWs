@@ -1,133 +1,52 @@
 import UIKit
 
-let dollarsArray = [1, 2, 5, 10, 20, 50, 100, 1000]
 
-let sum = dollarsArray.reduce(0, +)
+let tipAndTotal:(Double, Double) = (4.00, 25.19)
+tipAndTotal.0
+tipAndTotal.1
 
-print(sum)
+let (theTipAmt, theTotal) = tipAndTotal
+theTipAmt
+theTotal
 
-
-let daysArray = [31, 28, 31, 30, 31, 30, 31, 31, 31, 30, 31, 30, 31]
-
-for day in daysArray {
-    print(day)
-}
-
-
-let monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-for monthDays in 0..<monthArray.count {
-    print("В месяце \(monthArray[monthDays]) - \(daysArray[monthDays]) дней.")
-}
+let tipAndTotalNamed = (tipAmt:4.00, total:25.19)
+tipAndTotalNamed.tipAmt
+tipAndTotalNamed.total
 
 
-let monthTuples = ["January": 31, "February": 28, "March": 31, "April": 30, "May": 31, "June": 30, "July": 31, "August": 31, "September": 31, "October": 31, "November": 30, "December": 31]
-
-for (key, value) in monthTuples {
-    print("В месяце \(key) - \(value) дней.")
-}
+let _ = ()
 
 
-
-var index = monthArray.count - 1
- 
-for reversed in 0..<monthArray.count {
-    print("В месяце \(monthArray[(reversed + index)]) - \(daysArray[reversed + index]) дней.")
-    index -= 2
-}
+let arrayNumbers = ["one", "two", "three"]
+let tupleOne = (first: "1", second: arrayNumbers[2])
 
 
-var array = ["array"]
+let tupleTwo = (1, true, "Yes")
 
-for word in array {
-    while array.count != 30 {
-        array.append(word)
-    }
-}
-
-print(array)
+print(tupleTwo.0)
+print(tupleTwo.1)
+print(tupleTwo.2)
 
 
-let randomArray: [Any] = [35, true, 28, false, "Hello", "Hi", 1, "Yes"]
+let tupleThree = ("No", tupleTwo)
 
-var newArray = [String]()
-
-
-
-for object in randomArray where object is String {
-    
-    print(object)
-}
+print(tupleThree.0)
+print(tupleThree.1)
 
 
+var tupleCompanies = (first: "Apple", second: "IBM")
 
-let arrayTwoD = [["Hello", "Hi"], ["Привет"], [".", "Как","твои"], ["дела?"]]
-var arrayOneD = [String]()
+var tupleCompaniesNew = (first: tupleCompanies.first, second: tupleCompanies.second)
+tupleCompaniesNew.second = "Google"
 
-for array in arrayTwoD {
-    for string in array {
-        arrayOneD.append(string)
-    }
-}
-
-print(arrayOneD)
+print(tupleCompaniesNew)
 
 
-if arrayOneD.isEmpty {
-    print("Yes")
-} else {
-    print("No")
-}
+let name = "Sergey"
+let surName = "Angelov"
+let age = 27
+
+let myTuple = (name, surName, age)
 
 
-if arrayOneD.contains("Привет") {
-    print("Содержит слово привет")
-} else {
-    print("Не содержит слово привет")
-}
-
-
-var arrayInt = [Int]()
-
-for number in 1...10 {
-    arrayInt.append(number)
-}
-
-print(arrayInt)
-
-let newArrayInt = arrayInt[3...8]
-print(newArrayInt)
-
-
-let secondArrayInt = arrayInt[3..<9]
-print(secondArrayInt)
-
-
-var cars = ["Audi", "Mercedes", "Maserati", "Lamborghini", "Porsche", "BMW"]
-
-cars.sort()
-
-cars.sort(by: >)
-
-
-/*
- sort - меняет исходный массив
- sorted - возвращает отсортированный массив, не меняя исходный
- */
-
-
-let arrayNumbers = [22, 41, 23, 80, 33, 83, 56, 42, 11, 98, 120, 6, 84, 1]
-
-arrayNumbers.min()
-arrayNumbers.max()
-arrayNumbers.first
-arrayNumbers.last
-arrayNumbers.dropLast()
-arrayNumbers.dropFirst()
-
-print(arrayNumbers)
-
-/*
- remove - удаляет и возвращает элемент
- drop - возвращает новый массив без элемента, не изменяя текущий
- */
+//Нет не является.
