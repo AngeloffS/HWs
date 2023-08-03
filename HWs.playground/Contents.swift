@@ -67,17 +67,14 @@ let numFour = "4"
 let numFive = "5"
 
 let arrayNum = [numOne, numTwo, numThree, numFour, numFive]
+var intArray = [Int]()
 var sum = Int()
 
-for string in arrayNum {
-    for char in string {
-        if let num = Int(String(char)) {
-            sum += num
-        }
-    }
+for _ in arrayNum where intArray == arrayNum.map( { Int($0)} ) {
+    intArray.reduce(0, +)
+
 }
 
-print(sum)
 
 
 //4) Создать 3 константы со значением nil.
@@ -174,13 +171,11 @@ iAmMan ?? false
 
 let numbersArray: [String]? = ["5", "3", "шесть"]
 
-if let count = numbersArray?.count {
-    if count > 2 {
+if let count = numbersArray?.count, count > 2 {
         var result = [Int]()
         numbersArray?.forEach({ result += [Int($0) ?? 0]})
         print(result)
     }
-}
 
 
 //11) Распечатайте свое имя в цикле for.
