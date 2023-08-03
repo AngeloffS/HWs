@@ -1,196 +1,195 @@
 import UIKit
 
-//1) Постарайтесь больше практиковаться, повторите то, что есть в видео.
+//1) Повторите то, что было в видео.
 
-//nil
-
-var date: String?
-
-date = "30.02.2017"
-
-//if let unwrappedDate = date {
-  //  print("Текущая дата \(unwrappedDate)")
-//} else {
- //   print("Дата не была получена")
+//for i in 0...200 {
+//    if i == 10 {
+//        break
+//    }
+//
+//    print(i)
+//}
+//
+//var day = 1
+//
+//if day == 1 {
+//    print("Будний день")
+//} else if day == 2 {
+//    print("Будний день")
+//} else if day == 3 {
+//    print("Будний день")
+//} else if day == 4 {
+//    print("Будний день")
+//} else if day == 5 {
+//    print("Будний день пятница!")
+//} else if day == 6 {
+//    print("Выходной")
+//} else if day == 7 {
+//    print("Выходной")
+//}
+//
+//switch day {
+//case 1...4:
+//    print("Будний день")
+//case 5:
+//    print("Будний день пятница!")
+//case 6...7:
+//    print("Выходной")
+//default:
+//    break
 //}
 
-//print(date!)
-
-//if date != nil {
-  //  print("Текущая дата \(date!)")
-//} else {
-  //  print("nil")
+//let nameWork = "Ios Dev"
+//let age = 51
+//let peopleSex = "M"
+//
+//switch (nameWork, age) {
+//case (_, 1...17):
+//    print("Ты маловат")
+//case ("Ios Dev", 18...50) where peopleSex == "W":
+//    print("Девушек не берем")
+//case ("Ios Dev", 18...50) where peopleSex == "M":
+//    print("Вы нам подходите")
+//case let(name, age):
+//    print("\(name) в \(age) год?")
+//
+//default:
+//    print("Введите корректные значения")
 //}
 
-let age: String = "20"
 
-if Int(age) != nil {
-    let ageInt = Int(age)!
-    ageInt
+//2) Зайти обязательно и познакомиться с документацией. Выпишите около 5 примеров.
+
+let names = ["Anna", "Alex", "Brian", "Jack"]
+for name in names {
+    print("Hello, \(name)!")
+}
+
+var productTemperature = 20
+
+repeat {
+    productTemperature += 20
+    print(productTemperature)
+} while productTemperature < 60
+
+while productTemperature < 80 {
+    productTemperature += 20
+    print(productTemperature)
 }
 
 
-//2) Зайти и обязательно познакомиться с документацией. Выпишите в ДЗ 5 примеров
+//3) Создать цикл в цикле. В первом цикле интервал 200 раз во втором как дойдем до 15 выйти со всех циклов сразу.
 
-let shortForm: Int? = Int("42")
-let longForm: Optional<Int> = Int("42")
+for i in 0...200 {
+    if i == 15 {
+        break
+    }
+    print(i)
+}
 
-let number: Int? = Optional.some(42)
-let noNumber: Int? = Optional.none
-print(noNumber == nil)
 
-let imagePaths = ["star": "/glyphs/star.png",
-                  "portrait": "/images/content/portrait.jpg",
-                  "spacer": "/images/shared/spacer.gif"]
+//4) Создать обработку возраста в switch, если человеку от 6 до 17 то выводить, что ему пора нужно в школу, если от 18 до 25, то в универ и так далее, аж до пенсии.
 
-if let starPath = imagePaths["star"] {
-    print("The star image is at '\(starPath)'")
+var age = 20
+
+switch age {
+case 0...5:
+    print("В садик")
+case 6...18:
+    print("В школу")
+case 19...24:
+    print("В университет")
+case 25...65:
+    print("На работу")
+case 66..<age:
+    print("На пенсию")
+default:
+    print("Введите корректный возраст")
+}
+
+
+//5) Сделать 4 е задание через if конструкцию.
+
+let ageMan = 25
+
+if ageMan < 5 {
+    print("В садик")
+} else if ageMan >= 6 && ageMan <= 18 {
+    print("В школу")
+} else if ageMan >= 19 && age <= 24 {
+    print("В университет")
+} else if ageMan >= 25 && ageMan <= 65 {
+    print("На работу")
+} else if ageMan > 66 {
+    print("На пенсию")
 } else {
-    print("Couldn't find the star image")
+    print("Введите корректный возраст")
 }
 
-if imagePaths["star"]?.hasSuffix(".png") == true {
-    print("The star image is in PNG format")
-}
 
-let defaultImagePath = "/images/default.png"
-let heartPath = imagePaths["heart"] ?? defaultImagePath
-print(heartPath)
+/*
+ 6) Создать switch, который принимает сразу точку по x и y например (1, 1) и написать условие если x,y по 0 то выводить x,y и написать, что это точка origin, если значение (1, 0), то выводим точку и говорим вы на оси x, (0, 1) вы на оси y, если x и y от -2 до 2 то писать вы внутри координат.
+*/
 
+let x = 1
+let y = 1
 
-//3) Создать 5 констант со СТРОКАМИ которые содержат цифры и посчитайте их используя новые инструменты.
-
-let numOne = "1"
-let numTwo = "2"
-let numThree = "3"
-let numFour = "4"
-let numFive = "5"
-
-let arrayNum = [numOne, numTwo, numThree, numFour, numFive]
-var intArray = [Int]()
-var sum = Int()
-
-for _ in arrayNum where intArray == arrayNum.map( { Int($0)} ) {
-    intArray.reduce(0, +)
-
+switch (x, y) {
+case (0, 0):
+    print("\(x) : \(y) - точка Origin")
+case (1, 0):
+    print("\(x) : \(y) - вы на оси Х")
+case (0, 1):
+    print("\(x) : \(y) - вы на оси Y")
+case let coordinates where x >= -2 && x <= 2 && y >= -2 && y <= 2:
+    print("Вы внутри координат Х: \(coordinates.0) : \(coordinates.1)")
+default:
+    print("Неизвестные коорддинаты")
+    
 }
 
 
 
-//4) Создать 3 константы со значением nil.
+//7) Написать switch в котором 3 кейса 1,2,3 с принтами этих индексов. Когда мы передаем 1 индекс печатать принт 1 го кейса, а когда передаем 2 й индекс то печатать сразу принт 2- го и 3-го кейса.
 
-let constOne: Int? = nil
-let constTwo: Double? = nil
-let constThree: Float? = nil
+let number = 2
 
-
-//5) Создать 5 опциональных типов констант и установите им значения.
-
-let firstConst: Int? = 1
-let secondConst: Double? = 1.1
-let thirdConst: Float? = 1.11
-let fourthConst: String = "Hello"
-let fifthConts: Bool? = false
-
-
-//6) Перечислите способы извлечения опционала с примерами (guard не использовать)
-
-// -  Force unwrapping.
-
-let email: String? = "angelovsv@icloud.com"
-
-print(email!)
-
-// - Implicity unwrapping.
-
-let optionalString: String? = "Good Morning!"
-let optionalStringTwo: String! = optionalString!
-
-// - Optional binding.
-
-let optionalUserName: String? = "Sergey"
-
-if let userName = optionalUserName {
-    print("Good morning \(userName)!")
-} else {
-    print("Sorry!User not found!")
-}
-
-// - Nil coalescing.
-
-let a = 1
-let b: Int? = 2
-let c = b ?? 0
-var summa = a + c
-
-print(summa)
-
-
-// 7) Создайте опциональный массив Int’ов с значениями от 1 до 11 Преобразуйте в новый массив добавив к каждому элементу букву «a». Выведите получившийся массив.
-
-let firstArray: [Int]? = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-var secondArray = [String]()
-
-if let firstArrayNum = firstArray {
-    for numbers in firstArrayNum {
-        secondArray += [String(numbers) + "a"]
-    }
-}
-
-print(secondArray)
-
-
-//8) Дан массив number: [Int]? = [5, 3, 6, 8, 1, 2, 4]. Найти сумму элементов массива и вывести в консоль. Для вычисления суммы использовать функцию высшего порядка.
-
-let numbers: [Int]? = [5, 3, 6, 8, 1, 2, 4]
-var result = numbers?.reduce(0, +) ?? 0
-
-print(result)
-
-
-//9) Создайте несколько опциональных значений. С помощью «оператора объединения с nil» извлеките значение.
-
-let myName: String? = "Sergey"
-
-myName ?? " "
-
-let myAge: Int? = 27
-
-myAge ?? 0
-
-let myHeight: Double? = 111.1
-
-myHeight ?? 0
-
-let iAmMan: Bool? = true
-
-iAmMan ?? false
-
-
-//10) Дан массив numbers: [String]? = ["5", "3", "шесть"].Если количество элементов в массиве больше 2 тогда преобразовать данный массив в массив [Int] и вывести в консоль
-
-let numbersArray: [String]? = ["5", "3", "шесть"]
-
-if let count = numbersArray?.count, count > 2 {
-        var result = [Int]()
-        numbersArray?.forEach({ result += [Int($0) ?? 0]})
-        print(result)
-    }
-
-
-//11) Распечатайте свое имя в цикле for.
-
-if let name = myName {
-    for char in name {
-        print(char)
-    }
+switch number {
+case 1:
+    print(1)
+case 2:
+    print(2)
+    fallthrough
+case 3:
+    print(3)
+default:
+    break
 }
 
 
-//12) Создайте массив с возрастом всех членов вашей семьи и распечатайте в консоли через цикл for.
+//8) Придумать свой switch в котором будет 3 кейса и в одном из ник доп. условие с оператором where.
 
-let ages = [2, 27, 28, 49, 50, 48, 64]
+let nameWork = "Ios Dev"
+let ageIosDev = 27
+let peopleSex = "M"
 
-for age in ages {
-    print(age)
+switch age {
+case 1...17:
+    print("Ты маловат")
+case 18...50 where peopleSex == "W":
+    print("Девушек не берем")
+case 18...50:
+    print("Вы нам подходите")
+default:
+    print("Введите корректные значения")
+}
+
+
+//9) Создайте переменную с значением 10 и через цикл while печатайте свое имя пока значение не станет 0.
+
+var times = 10
+
+while times > 0 {
+print("Sergey")
+    times -= 1
 }
