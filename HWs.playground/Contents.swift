@@ -1,247 +1,284 @@
 import UIKit
 
-//1) Повторите то, что было в видео.
+//1) Прочитать документацию. Выпишите около 5 примеров
 
-/*
- func имяФункции(принимаемые параметры) -> вовзращаемые параметры {
- ... тело функции ...
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+
+func backward(_ s1: String, _ s2: String) -> Bool {
+    s1 > s2
+}
+
+var reversedNames = names.sorted(by: backward)
+
+
+reversedNames.sort(by: { $0 > $1 })
+
+
+func someFunctionThatTakesAClouser(clouser: () -> Void) {
+    
+}
+
+someFunctionThatTakesAClouser() {
+    
+}
+
+
+let digitNames = [
+    0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
+    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
+]
+let numbers = [16, 58, 510]
+
+let strings = numbers.map { (number) -> String in
+    var number = number
+    var output = ""
+    repeat {
+        output = digitNames[number % 10]! + output
+        number /= 10
+    } while number > 0
+    return output
+}
+
+
+var completionHandlers: [() -> Void] = []
+func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
+  completionHandlers.append(completionHandler)
+}
+
+func someFunctionWithNoneЕscapingClosure(closure: () -> Void) {
+    closure()
+}
+ 
+class SomeClass {
+    var x = 10
+    func doSomething() {
+        someFunctionWithEscapingClosure { self.x = 100 }
+        someFunctionWithNoneЕscapingClosure { x = 200 }
+    }
+}
+ 
+let instance = SomeClass()
+instance.doSomething()
+print(instance.x)
+ 
+completionHandlers.first?()
+print(instance.x)
+
+
+//2) Повторить то, что есть в видео.
+
+/* Замыкания являются анонимными функциями, которые можно передавать в качестве аргументов другим функциям
+ {
+ (параметры) -> возвращаемый тип in
+ операторы
  }
  */
 
-//func sayFunc() {
-//    print("Hi")
-//}
+//let names = ["Максим", "Сергей", "Николай", "Артем", "альберт", "Том"]
 //
-//sayFunc()
-//
-//var arrayJournal = [String]()
-//
-//func addStudent(name: String, profession: String) {
-//    arrayJournal.append(name)
-//    arrayJournal.append(profession)
-//
-//    print(arrayJournal)
-//}
-//
-//addStudent(name: "Jack", profession: "IOS Dev")
-//addStudent(name: "Ivan", profession: "Android Dev")
-//addStudent(name: "Jogn", profession: "Java Dev")
-//
-//func calculate(number1: Int, number2: Int) -> Int {
-//    return number1 + number2
-//}
-//
-//calculate(number1: 10, number2: 20)
-//
-//let sum = calculate(number1: 10, number2: 20)
-//
-//print(sum)
+//let s = names.sorted()
 
-//var money = [1, 1, 52, 10, 70, 46, 46, 5, 2, 4]
-//var money2 = [1, 32, 352, 130, 70, 46, 46, 5, 24, 34]
-//
-//func calcMoney(inArray: [Int]) -> Int {
-//    var sum = 0
-//    for num in inArray {
-//        sum += num
-//    }
-//    return sum
+//(String, String) -> Bool
+
+//let t1 = names.sorted { (s1: String, s2: String) -> Bool in
+//    return s1 < s2
 //}
 //
-//calcMoney(inArray: money)
-//let sum = calcMoney(inArray: money2)
-//
-//print(sum)
-//
-//func generalFunc(answer: Bool) -> () -> String {
-//
-//    func sayYes() -> String {
-//        return "Yes"
-//    }
-//
-//    func sayNo() -> String {
-//        return "No"
-//    }
-//
-//    return answer ? sayYes : sayNo
-//}
-//
-//generalFunc(answer: true)()
+//let t2 = names.sorted { (s1, s2) in return s1 < s2 }
+//let t3 = names.sorted { (s1, s2) in s1 < s2 }
+//let t4 = names.sorted { (s1, s2) in s2 < s1 }
+//let t5 = names.sorted { (s1, s2) in s1.count < s2.count }
 
 
-//2) Зайти обязательно и познакомиться с документацией. Выпишите 5 примеров в плейграунд.
+//Автоматические имена аргументов
 
-func greet(person: String) -> String {
-    let greeting = "Привет, " + person + "!"
-    return greeting
+//let p1 = names.sorted(by: { $0 < $1 })
+//let p2 = names.sorted(by: { $0 > $1 })
+//let p3 = names.sorted(by: { $0.count > $1.count})
+
+
+// Захват значений
+
+//func makeTranslator(stroka: String) -> (String) -> (String) {
+//    return { (name: String) -> String in return (stroka + " " + name) }
+//}
+//
+//var englishWelcome = makeTranslator(stroka: "Hi")
+//
+//englishWelcome("Jack")
+//
+//var russianWelcome = makeTranslator(stroka: "Привет")
+//
+//russianWelcome("Евгений")
+
+
+//3) Написать сортировку массива с помощью замыкания, сначала в одну сторону, затем в другую. Вывести всё в консоль.
+
+var arrayNumbers = [2, 4, 70, 31, 8, 15, 47, 9, 100]
+
+print(arrayNumbers.sorted { $0 > $1})
+print(arrayNumbers.sorted { $0 < $1})
+
+
+//4) Создать метод который запрашивает имена друзей, после этого имена положить в массив. Массив отсортировать по количеству букв в имени.
+
+var namesArray = [String]()
+
+func friendsName(_ friend: String) {
+    namesArray.append(friend)
+    print(namesArray.sorted { $0.count > $1.count })
 }
 
-print(greet(person: "Anna"))
+friendsName("Sergey")
+friendsName("Alex")
+friendsName("Eva")
+friendsName("Inna")
 
 
-func greetAgain(person: String) -> String {
-    return "Hello again, " + person + "!"
+//5) Что такое closure
+
+/*
+ это анонимные функции, которые могут принимать другие функции в качестве аргументов и возвращать их результат.
+ */
+
+
+//6) Написать что такое хвостовое замыкание. Привести пример.
+
+/*
+ это параметр функции который пишется в конце.
+ */
+
+print(namesArray.sorted { $0.count > $1.count })
+
+
+//7) Написать что такое сбегающее замыкание. Привести пример.
+
+/*
+ это замыкание которое передается в функцию в качестве аргумента и вызывается уже после того, как функция вернула значение.
+ Чтобы указать, что замыкание может сбежать пишем @escaping до типа параметра.
+ */
+
+func runTask(completion: @escaping (Error?) -> ()) {
+  completion(nil)
 }
 
-print(greetAgain(person: "Anna"))
 
+//8) Написать что такое autoclosures. Привести пример.
 
-func sayHelloWorld() -> String {
-    return "hello, world"
+/*
+ это конструкции, которые позволяют создавать замыкания без явного указания их параметров. Они создаются автоматически на основе контекста, в котором они используются.
+ */
+
+func addSub(n: Int) -> (Int) -> Int {
+  { n + $0 }
 }
-print(sayHelloWorld())
+
+let double = addSub(n: 10)
+double(5)
+double(10)
 
 
-func greet(person: String, alreadyGreeted: Bool) -> String {
-    if alreadyGreeted {
-        return greetAgain(person: person)
-    } else {
-        return greet(person: person)
-    }
-}
-print(greet(person: "Tim", alreadyGreeted: true))
+//9) Создайте переменную типа ()->(). В теле кложуры создайте словарь (типы значений на ваш выбор) из 10 элементов и распечатайте пары (ключ: значение). Вызовите ниже вашу кложуру.
 
-
-func minMax(array: [Int]) -> (min: Int, max: Int) {
-    var currentMin = array[0]
-    var currentMax = array[0]
-    for value in array[1..<array.count] {
-        if value < currentMin {
-            currentMin = value
-        } else if value > currentMax {
-            currentMax = value
+let closure: () -> () = {
+    var dictionary = [1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"]
+    
+    for (key, value) in dictionary.sorted(by: <) {
+            print("\(key) -> \(value)")
         }
     }
-    return (currentMin, currentMax)
+
+closure()
+
+
+//10) Создать массив из 10 элементов с помощью map каждый элемент умножить на 10, преобразовать в массив String с помощью compactMap, отфильтровать c помощью .filter. Оставить значения с количеством символов больше 2.Вывести результат в консоль.
+
+var arrayNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arrayNum.map { $0 * 10 }
+
+var stringArrayNum = arrayNum.compactMap { String($0) }
+
+stringArrayNum = stringArrayNum.filter { $0.count >= 2 }
+
+print(stringArrayNum)
+
+
+//11) Создать кложуру которая принимает коэффициенты квадратного уравнения и возвращает его корни. Для примеры решаем это уравнение: x2 − 8x + 12 = 0;
+
+
+func solution(a: Double, b: Double, c: Double) -> Double {
+  let d = b * b - 4 * a * c
+  return (-b + Double(sqrt(d))) / (2 * a)
 }
 
-let bounds = minMax(array: [8, -6, 2, 109, 3, 71])
+let x1 = solution(a: 1, b: -8, c: 12)
+let x2 = solution(a: -1, b: 8, c: -12)
 
-print("min is \(bounds.min) and max is \(bounds.max)")
+print("X1 = \(x1) , X2 = \(x2)")
 
 
-//3) Создать 4 функции:
-//Которая ничего не принимает и ничего не возвращает.
+//12) Вызовите ниже кложуру и в ее теле вывести произвольный текст. Преобразовать функцию с кложурой на скрине к функции с автокложурой. Вызвать и в теле вывести произвольный текст. Описать разницу между двумя вариантами.
 
-func emptyFunc() {
-    print("Empty")
+func closureExample(saySomething: () -> ()) {
+    saySomething()
 }
 
-//Принимает параметры но не возвращает.
+closureExample { print("Hi!") }
 
-func funcNumOne(name: String) {
-    print("Hello \(name)")
+func autoClosure(saySomething: @autoclosure () -> ()) {
+    saySomething()
 }
 
-//Принимает параметры и возвращает.
+autoClosure(saySomething: print("Hi!"))
 
-func funcNumTwo(name: String) -> String {
-    return "Hello" + " " + name + "!"
+//Разница в { }
+
+//13) Написать функцию принимающую два параметра: первый параметр [Int] второй замыкание (_ result: [String] -> ()) переданный массив преобразовать к массиву String и вернуть в замыкании. Вызвать функцию и распечатать полученный результат в консоль. Функцию вызвать 3 раза:
+//1) В ПОЛНОМ синтаксисе, c указанием типа замыкания, замыкание внутри скобок функции)
+//2) С неявным возвратом значения (без указания типа), выносом за скобки
+//3) С сокращенным имени параметра ($0), выносом за скобки
+
+func newFunc(firstParametr: [Int], _ result: ([String]) -> ()) {
+    let stringsArray = firstParametr.compactMap { String($0) }
+    result(stringsArray)
 }
 
-print(funcNumTwo(name: "Sergey"))
+newFunc(firstParametr: [1, 2, 3], { (stringsArray: [String]) -> () in
+    print(stringsArray) })
 
-//Не принимает параметры но возвращает тюпл из 3х параметров.
+newFunc(firstParametr: [1, 2, 3]) { stringsArray in
+    print(stringsArray) }
 
-func funcNumThree() -> (Int, String, Bool) {
-    return (1, "Hello", false)
-}
-
-let result = funcNumThree()
+newFunc(firstParametr: [1, 2, 3]) { print($0) }
 
 
-//4) Создать журнал для учителя, который будет принимать имя студента , профессию и оценку и записывает это все в массив. И внесите 10 студентов туда и распечатаете через цикл for.
+//14) Написать функцию которая будет принимать ключи, выводить ключи и значения словаря (Dictionary). Тип ключа и значения выбирайте сами.
 
-var journal = [String]()
-
-func addStudent(name: String, prof: String, score: Int) {
-    journal.append(name)
-    journal.append(prof)
-    journal.append(String(score))
-}
-
-addStudent(name: "Sergey", prof: "Ios Dev", score: 5)
-addStudent(name: "Mark", prof: "Android Dev", score: 4)
-addStudent(name: "Andry", prof: "Java Dev", score: 3)
-addStudent(name: "Antony", prof: "Go Dev", score: 2)
-addStudent(name: "Jane", prof: "Web Dev", score: 1)
-addStudent(name: "Alice", prof: "Designer", score: 2)
-addStudent(name: "Vladimir", prof: "Dart Dev", score: 3)
-addStudent(name: "Alex", prof: "Flutter Dev", score: 4)
-addStudent(name: "Evgeniy", prof: "Ios Dev", score: 5)
-addStudent(name: "John", prof: "Backend Dev", score: 4)
-
-for student in journal {
-    print(student)
+func printKeyValue<Key, Value>(_ dictionary: [Key: Value], _ keys: [Key]) {
+  var keyValue = [(Key, Value)]()
+  keys.forEach { key in
+      if let value = dictionary[key] {
+      keyValue.append((key, value))
+    } else {
+      print("Key \(key) not found!")
+    }
+  }
+  print("\(keyValue)")
 }
 
 
-//5) Создать функцию которая принимает имя и фамилию, потом положить это в массив и отсортировать и вывести результат в консоль.
+//15) Написать функцию, которая принимает пустые массивы(один строковый, второй - числовой) и проверяет их: если пустой - то добавить значения и вывести в консоль.
 
-
-var arrayFullName = [String]()
-
-func nameSurname(name: String, surname: String) {
-    arrayFullName.append(name)
-    arrayFullName.append(surname)
-    print(arrayFullName.sorted())
-}
-          
-nameSurname(name: "Sergey", surname: "Angelov")
-nameSurname(name: "Inna", surname: "Pavlova")
-nameSurname(name: "Alex", surname: "Angelov")
-nameSurname(name: "Eva", surname: "Angelova")
-
-
-//6) Создать функцию которая принимает параметры и вычисляет площадь круга.
-
-func circleS(radius: Double) -> Double {
-    let pi = 3.14
-    return radius * radius * pi
-}
-
-let circle = circleS(radius: 3)
-
-
-//7) Создать те пустой массив кошелек, создайте функцию которая принимает массив в параметрах и в теле функции добавляет в этот массив значение 100. Далее вызовите массив и потом распечатайте значение массива.
-
-var wallet = [Int]()
-
-func balance(with amount: Int) {
-    wallet.append(amount)
-}
-
-balance(with: 100)
-
-print(wallet[0])
-
-
-//8) Написать функцию в которой можно передавать в параметры каждый раз разное количество Int например иногда 1,5,9 а следующий раз 5,10, 11, 20, 50 функция все это посчитает и вернет сумму этих чисел.
-
-
-func sum(nums: [Int]) -> Int {
-    return nums.reduce(0, +)
-}
-
-let numbers = sum(nums: [1, 2, 3, 4, 5])
-
-
-//9) Написать любую функцию которая вернет throws.
-
-
-enum LoginErrors: Error {
-    case badLog
-    case badPass
-}
-
-func errorThrows(log: String, pass: String) throws -> Bool {
-    if log.isEmpty { throw LoginErrors.badLog }
-    if pass.isEmpty { throw LoginErrors.badPass }
-    return true
-}
-
-do {
-    try errorThrows(log: "Angelov", pass: "2571883")
-} catch {
-    print(error.localizedDescription)
+func emptyTest(stringArray: [String], intArray: [Int]) {
+    if stringArray.isEmpty {
+        print("Строковый массив пуст")
+    } else {
+        stringArray.forEach { print($0) }
+    }
+    if intArray.isEmpty {
+        print("Числовой массив пуст")
+    } else {
+        intArray.forEach { print($0) }
+    }
 }
