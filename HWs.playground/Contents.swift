@@ -1,284 +1,291 @@
 import UIKit
 
-//1) Прочитать документацию. Выпишите около 5 примеров
+///1) Больше практиковаться, повторите то, что есть в видео.
 
-let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+//enum TravelClass {
+//    case first, business, economy
+//}
+//
+//let travel = TravelClass.economy
+//
+//enum Medal {
+//    case gold
+//    case silver
+//    case bronse
+//}
+//
+//let medal = Medal.bronse
+//
+//switch medal {
+//case .bronse:
+//    print("u medal bronse")
+//case .silver:
+//    print("u medal silver")
+//case .gold:
+//    print("u medal gold")
+//}
+//
+//enum DayOfWeek {
+//    case monday
+//    case tuesday
+//    case wednesday
+//    case thursday
+//    enum friday {
+//        case day
+//        case night
+//    }
+//    case saturday
+//    case sunday
+//}
+//
+//var friday = DayOfWeek.friday.day
+//
+//enum Operation {
+//    case double(Double)
+//    case integer(Int)
+//    case float(Float)
+//    case string(String)
+//}
+//
+//var dictionary: Dictionary<String, Operation> = [
+//    "Double": Operation.double(25.4),
+//    "Integer": Operation.integer(10),
+//    "Float": Operation.float(44.1),
+//    "String": Operation.string("String")
+//]
+//
+//let pr = dictionary["String"]
+//print(pr!)
 
-func backward(_ s1: String, _ s2: String) -> Bool {
-    s1 > s2
+
+//2) Обязательно познакомиться с документацией. Выписать около 5 примеров
+
+enum CompassPoint {
+    case north
+    case south
+    case east
+    case west
 }
 
-var reversedNames = names.sorted(by: backward)
-
-
-reversedNames.sort(by: { $0 > $1 })
-
-
-func someFunctionThatTakesAClouser(clouser: () -> Void) {
-    
+enum Planet {
+    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
 }
 
-someFunctionThatTakesAClouser() {
-    
+var directionToHead = CompassPoint.west
+
+directionToHead = .east
+
+directionToHead = .south
+switch directionToHead {
+case .north:
+    print("Lots of planets have a north")
+case .south:
+    print("Watch out for penguins")
+case .east:
+    print("Where the sun rises")
+case .west:
+    print("Where the skies are blue")
+}
+
+let somePlanet = Planet.earth
+switch somePlanet {
+case .earth:
+    print("Mostly harmless")
+default:
+    print("Not a safe place for humans")
+}
+
+enum Beverage: CaseIterable {
+    case coffee, tea, juice
+}
+let numberOfChoices = Beverage.allCases.count
+print("\(numberOfChoices) beverages available")
+
+
+//3) Создать по 1-2 enum разных типов.
+
+enum Seasons {
+    case winter
+    case spring
+    case summer
+    case automn
+}
+
+enum Companies {
+    case apple
+    case samsung
+    case google
+    case yandex
+    case tesla
 }
 
 
-let digitNames = [
-    0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
-    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
-]
-let numbers = [16, 58, 510]
+/*
+ 4) Создать несколько своих enum, названия какие хотите: например, анкета сотрудника - пол, возраст,ФИО, стаж. Используйте switch как в видео.
+ */
 
-let strings = numbers.map { (number) -> String in
-    var number = number
-    var output = ""
-    repeat {
-        output = digitNames[number % 10]! + output
-        number /= 10
-    } while number > 0
-    return output
+enum Resume {
+    enum sex {
+        case man
+        case woman
+    }
+    case age
+    case name
+    case exp
+}
+
+let workerSex = Resume.sex.man
+
+switch workerSex {
+case .man:
+    print("Добро пожаловать в нашу команду уважаемый работник!")
+case .woman:
+    print("Добро пожаловать в нашу команду уважаемая работница")
 }
 
 
-var completionHandlers: [() -> Void] = []
-func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
-  completionHandlers.append(completionHandler)
+/*
+ 5) Создать enum со всеми цветами радуги. Создать функцию, которая содержит названия разных предметов или объектов. Пример результата в консоли "apple green", "sun red" и т.д.
+ */
+
+enum Colors: Int {
+    case red
+    case orange
+    case yellow
+    case green
+    case lightBlue
+    case blue
+    case purple
 }
 
-func someFunctionWithNoneЕscapingClosure(closure: () -> Void) {
-    closure()
-}
- 
-class SomeClass {
-    var x = 10
-    func doSomething() {
-        someFunctionWithEscapingClosure { self.x = 100 }
-        someFunctionWithNoneЕscapingClosure { x = 200 }
+func objectsColor(_ color: Colors) {
+    let objects = ["apple", "car", "limon", "grass", "ocean", "plane", "grape"]
+    switch color {
+    case let objectColor:
+        let object = objects[objectColor.rawValue]
+        print("The \(object) is \(objectColor)")
     }
 }
+
+objectsColor(.red)
+objectsColor(.orange)
+objectsColor(.yellow)
+objectsColor(.green)
+objectsColor(.lightBlue)
+objectsColor(.blue)
+objectsColor(.purple)
+
+
+//6) Создать функцию, которая выставляет оценки ученикам в школе.
+
+enum Assessment {
+    case excellent
+    case well
+    case satisfactory
+    case badly
+    case terribly
+}
+
+func gradesOfStudent(_ grades: Assessment) -> Int {
+    switch grades {
+    case .excellent:
+        return 5
+    case .well:
+        return 4
+    case .satisfactory:
+        return 3
+    case .badly:
+        return 2
+    case .terribly:
+        return 1
+    }
+}
+
+gradesOfStudent(.excellent)
+gradesOfStudent(.well)
+gradesOfStudent(.satisfactory)
+gradesOfStudent(.badly)
+gradesOfStudent(.terribly)
+
+
+/*
+ 7) Создать Enum Vehicles. Добавить в него 3 вложенных Enum: Cars, Ships, Bikes. В каждом Enum добавить по 3 значения. Каждое значение имеет 2 ассоциативных типа (String, Int).
+*/
  
-let instance = SomeClass()
-instance.doSomething()
-print(instance.x)
- 
-completionHandlers.first?()
-print(instance.x)
-
-
-//2) Повторить то, что есть в видео.
-
-/* Замыкания являются анонимными функциями, которые можно передавать в качестве аргументов другим функциям
- {
- (параметры) -> возвращаемый тип in
- операторы
- }
- */
-
-//let names = ["Максим", "Сергей", "Николай", "Артем", "альберт", "Том"]
-//
-//let s = names.sorted()
-
-//(String, String) -> Bool
-
-//let t1 = names.sorted { (s1: String, s2: String) -> Bool in
-//    return s1 < s2
-//}
-//
-//let t2 = names.sorted { (s1, s2) in return s1 < s2 }
-//let t3 = names.sorted { (s1, s2) in s1 < s2 }
-//let t4 = names.sorted { (s1, s2) in s2 < s1 }
-//let t5 = names.sorted { (s1, s2) in s1.count < s2.count }
-
-
-//Автоматические имена аргументов
-
-//let p1 = names.sorted(by: { $0 < $1 })
-//let p2 = names.sorted(by: { $0 > $1 })
-//let p3 = names.sorted(by: { $0.count > $1.count})
-
-
-// Захват значений
-
-//func makeTranslator(stroka: String) -> (String) -> (String) {
-//    return { (name: String) -> String in return (stroka + " " + name) }
-//}
-//
-//var englishWelcome = makeTranslator(stroka: "Hi")
-//
-//englishWelcome("Jack")
-//
-//var russianWelcome = makeTranslator(stroka: "Привет")
-//
-//russianWelcome("Евгений")
-
-
-//3) Написать сортировку массива с помощью замыкания, сначала в одну сторону, затем в другую. Вывести всё в консоль.
-
-var arrayNumbers = [2, 4, 70, 31, 8, 15, 47, 9, 100]
-
-print(arrayNumbers.sorted { $0 > $1})
-print(arrayNumbers.sorted { $0 < $1})
-
-
-//4) Создать метод который запрашивает имена друзей, после этого имена положить в массив. Массив отсортировать по количеству букв в имени.
-
-var namesArray = [String]()
-
-func friendsName(_ friend: String) {
-    namesArray.append(friend)
-    print(namesArray.sorted { $0.count > $1.count })
-}
-
-friendsName("Sergey")
-friendsName("Alex")
-friendsName("Eva")
-friendsName("Inna")
-
-
-//5) Что такое closure
-
-/*
- это анонимные функции, которые могут принимать другие функции в качестве аргументов и возвращать их результат.
- */
-
-
-//6) Написать что такое хвостовое замыкание. Привести пример.
-
-/*
- это параметр функции который пишется в конце.
- */
-
-print(namesArray.sorted { $0.count > $1.count })
-
-
-//7) Написать что такое сбегающее замыкание. Привести пример.
-
-/*
- это замыкание которое передается в функцию в качестве аргумента и вызывается уже после того, как функция вернула значение.
- Чтобы указать, что замыкание может сбежать пишем @escaping до типа параметра.
- */
-
-func runTask(completion: @escaping (Error?) -> ()) {
-  completion(nil)
+enum Vehicles {
+    enum cars {
+        case bmw(String, Int)
+        case audi(String, Int)
+        case mercedes(String, Int)
+    }
+    enum ships {
+        case titanic(String, Int)
+        case moskva(String, Int)
+        case evergreen(String, Int)
+    }
+    enum bikes {
+        case ducatti(String, Int)
+        case harley(String, Int)
+        case jawa(String, Int)
+    }
 }
 
 
-//8) Написать что такое autoclosures. Привести пример.
-
 /*
- это конструкции, которые позволяют создавать замыкания без явного указания их параметров. Они создаются автоматически на основе контекста, в котором они используются.
+ 8) Создать функцию, принимающую в качестве параметра элемент Vehicles.Cars. C помощью switch вывести для найденного кейса ассоциативные значения с припиской «Печать из switch» и вызвать closure, в который передать ассоциативные значения. Closure должен выводить на печать эти значения с припиской «Печать из Closure». После этого провалиться в следующий элемент switch и вызвать secondClosure(), которая выводить в консоль «Печать из secondClosure» если передаете элемент, который в свиче последний. Третьей строчки быть не должно.
  */
 
-func addSub(n: Int) -> (Int) -> Int {
-  { n + $0 }
-}
-
-let double = addSub(n: 10)
-double(5)
-double(10)
-
-
-//9) Создайте переменную типа ()->(). В теле кложуры создайте словарь (типы значений на ваш выбор) из 10 элементов и распечатайте пары (ключ: значение). Вызовите ниже вашу кложуру.
-
-let closure: () -> () = {
-    var dictionary = [1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"]
-    
-    for (key, value) in dictionary.sorted(by: <) {
-            print("\(key) -> \(value)")
+func printCars(_ cars: Vehicles.cars, firstClosure: (String, Int) -> (), secondClosure: () -> ()) {
+    var last = false
+    switch cars {
+    case .bmw(let name, let age):
+        last = true
+        print("Печать из switch \(name), \(age)")
+        firstClosure(name, age)
+        fallthrough
+    case .audi(let name, let age):
+        if last {
+            fallthrough
+        } else {
+            last = true
+            print("Печать из switch \(name), \(age)")
+            firstClosure(name, age)
+            fallthrough
+        }
+    case .mercedes(let name, let age):
+        if last {
+            secondClosure()
+        } else {
+            print("Печать из switch \(name), \(age)")
+            secondClosure()
         }
     }
-
-closure()
-
-
-//10) Создать массив из 10 элементов с помощью map каждый элемент умножить на 10, преобразовать в массив String с помощью compactMap, отфильтровать c помощью .filter. Оставить значения с количеством символов больше 2.Вывести результат в консоль.
-
-var arrayNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-arrayNum.map { $0 * 10 }
-
-var stringArrayNum = arrayNum.compactMap { String($0) }
-
-stringArrayNum = stringArrayNum.filter { $0.count >= 2 }
-
-print(stringArrayNum)
-
-
-//11) Создать кложуру которая принимает коэффициенты квадратного уравнения и возвращает его корни. Для примеры решаем это уравнение: x2 − 8x + 12 = 0;
-
-
-func solution(a: Double, b: Double, c: Double) -> Double {
-  let d = b * b - 4 * a * c
-  return (-b + Double(sqrt(d))) / (2 * a)
 }
 
-let x1 = solution(a: 1, b: -8, c: 12)
-let x2 = solution(a: -1, b: 8, c: -12)
 
-print("X1 = \(x1) , X2 = \(x2)")
-
-
-//12) Вызовите ниже кложуру и в ее теле вывести произвольный текст. Преобразовать функцию с кложурой на скрине к функции с автокложурой. Вызвать и в теле вывести произвольный текст. Описать разницу между двумя вариантами.
-
-func closureExample(saySomething: () -> ()) {
-    saySomething()
-}
-
-closureExample { print("Hi!") }
-
-func autoClosure(saySomething: @autoclosure () -> ()) {
-    saySomething()
-}
-
-autoClosure(saySomething: print("Hi!"))
-
-//Разница в { }
-
-//13) Написать функцию принимающую два параметра: первый параметр [Int] второй замыкание (_ result: [String] -> ()) переданный массив преобразовать к массиву String и вернуть в замыкании. Вызвать функцию и распечатать полученный результат в консоль. Функцию вызвать 3 раза:
-//1) В ПОЛНОМ синтаксисе, c указанием типа замыкания, замыкание внутри скобок функции)
-//2) С неявным возвратом значения (без указания типа), выносом за скобки
-//3) С сокращенным имени параметра ($0), выносом за скобки
-
-func newFunc(firstParametr: [Int], _ result: ([String]) -> ()) {
-    let stringsArray = firstParametr.compactMap { String($0) }
-    result(stringsArray)
-}
-
-newFunc(firstParametr: [1, 2, 3], { (stringsArray: [String]) -> () in
-    print(stringsArray) })
-
-newFunc(firstParametr: [1, 2, 3]) { stringsArray in
-    print(stringsArray) }
-
-newFunc(firstParametr: [1, 2, 3]) { print($0) }
+printCars(.bmw("540i", 2023), firstClosure: { name, age in
+    print("Печать из firstClosure \(name), \(age)")
+}, secondClosure: {
+    print("Печать из secondClosure")
+})
 
 
-//14) Написать функцию которая будет принимать ключи, выводить ключи и значения словаря (Dictionary). Тип ключа и значения выбирайте сами.
+/*
+ 9) Создать enum House: Int c 5-ю case –ми и задайте им исходные значения. Создать в House вычисляемое свойство houseHeight, в котором выводить текущее значение * 100. Создать в House функцию в которой выводить на печать значение из вычисляемого свойства.
+ */
 
-func printKeyValue<Key, Value>(_ dictionary: [Key: Value], _ keys: [Key]) {
-  var keyValue = [(Key, Value)]()
-  keys.forEach { key in
-      if let value = dictionary[key] {
-      keyValue.append((key, value))
-    } else {
-      print("Key \(key) not found!")
+enum House: Int {
+    case firstRoom = 10
+    case secondRoom = 12
+    case thirdRoom = 9
+    case bathRoom = 5
+    case toilet = 3
+    
+    var sum: Int {
+        return (House.firstRoom.rawValue + House.secondRoom.rawValue + House.thirdRoom.rawValue + House.bathRoom.rawValue + House.toilet.rawValue) * 100
     }
-  }
-  print("\(keyValue)")
-}
-
-
-//15) Написать функцию, которая принимает пустые массивы(один строковый, второй - числовой) и проверяет их: если пустой - то добавить значения и вывести в консоль.
-
-func emptyTest(stringArray: [String], intArray: [Int]) {
-    if stringArray.isEmpty {
-        print("Строковый массив пуст")
-    } else {
-        stringArray.forEach { print($0) }
-    }
-    if intArray.isEmpty {
-        print("Числовой массив пуст")
-    } else {
-        intArray.forEach { print($0) }
+    
+    func printHouseArea() {
+        print(sum)
     }
 }
