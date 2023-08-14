@@ -1,175 +1,219 @@
 import UIKit
 
-//1) Повторить то что было в уроке.
+//1) Повторить то, что есть в видео.
+
+//struct Observer {
 //
-//class ParentsClass {
+//    var name: String {
+//        willSet {
+//            print("Внимание! Значение хочет поменяться на" + " " + newValue)
+//        }
+//        didSet {
+//            print("Didset" + " " + oldValue)
 //
-//    var array = [String]()
-//
-//    var name = ""
-//    var age = 20
-//
-//    init(name: String, age: Int) {
-//        self.name = name
-//        self.age = age
+//            if name != "" {
+//                name = name.capitalized
+//            }
+//        }
 //    }
 //}
 //
-//class Son: ParentsClass {
+//var obser = Observer(name: "Jack")
 //
-//    func method(name: String) {
-//        print("Hello \(name)")
+//obser.name
+//obser.name = "ivan"
+//
+//print(obser.name)
+//
+//struct ComputerProperty {
+//
+//    var firstName: String {
+//        didSet {
+//            if firstName != ""{
+//                firstName = firstName.capitalized
+//            }
+//        }
+//    }
+//    var lastName: String
+//
+//    var fullname: String {
+//        get {
+//            return firstName + " " + lastName
+//        }
+//        set {
+//            print("Setter is work" + " " + newValue)
+//        }
 //    }
 //}
 //
-//var sonClass = Son(name: "Iron", age: 30)
-//
-//sonClass.name
-//sonClass.method(name: "Jack")
-//
-//sonClass.name = "Jack"
-//sonClass.age
-//
-//
-//struct NameStruct {
-//    var name: String
-//    var age: Int
-//}
-//
-//var str = NameStruct(name: "Max", age: 20)
+//var compProp = ComputerProperty(firstName: "Kuky", lastName: "Smith")
 
-
-//2) Создать класс родитель и 2 класса наследника.
-
-class Human {
-    
-    var name: String
-    
-    init(name: String) {
-        self.name = name
-    }
-}
-
-class Man: Human {
-    
-    var sex: String
-    var age: Int
-    
-    init(sex: String, name: String, age: Int) {
-        self.sex = sex
-        self.age = age
-        super.init(name: name)
-    }
-}
-
-class Woman: Human {
-    
-    var age: Int
-    var sex: String
-    
-    init(sex: String, name: String, age: Int) {
-        self.age = age
-        self.sex = sex
-        super.init(name: name)
-    }
-}
-
-let man = Man(sex: "M", name: "Sergey", age: 27)
-let woman = Woman(sex: "W", name: "Inna", age: 28)
-
-
+ 
 /*
-3) Написать программу, в которой создать класс *House* в нем несколько свойств - *width*, *height* и несколько методов - *create*(выводит произведение свойств),*destroy*(отображает в принте что дом уничтожен).
-*/
-
-class House {
-    
-    var width: Int
-    var height: Int
-    
-    func create() {
-        width * height
-    }
-    
-    func destroy() {
-        print("House has been destroyed!")
-    }
-    
-    init(width: Int, height: Int) {
-        self.width = width
-        self.height = height
-    }
-}
-
-
-//4) Создайте класс с методом, который сортирует массив учеников.
-
+ 2) Создать класс "Students", добавить ему property: dateOfBirth, skills. Для тренировки. Создавайте свои структуры с разными видами свойств: сохраняемые/не сохраняемые, вычисляемые, свойства типа и т.д.
+ */
 
 class Students {
     
-  var students = [String]()
-
-  func sortStudents() {
-    self.students = self.students.sorted()
-  }
-}
-
-
-//5) Написать свою структуру и класс, пояснить в комментариях - чем отличаются структуры от классов.
-
-class ExampleClass {
+    var name: String {
+        didSet {
+            if name != "" {
+                name = name.capitalized
+            }
+        }
+    }
+    var dateOfBirth: String
+    var skills: [String]
     
-    var name = "Class"
-}
-
-struct ExampleStruct {
-    
-    var name: String
-}
-
-//Структура в отличии от класса имеет встренный инициализатор.
-//Структура - Value type, Класс - Reference type.
-//Структруа - неизменяемая
-
-
-//6) Обьяснить в коментариях есть ли у классов множественное наследование, и пояснить что это.
-
-//Да, у классов есть множественное наследование. Это когда классы могут наследоваться друг от друга это и называется множественное наследование. Это позволяет создать иерархию классов.
-
-
-//7) Обьяснить может ли структуры наследоваться.
-
-//Нет, они не наследуются, но как и классы могут принимать протоколы.
-
-
-// 8) Выписать по 1 пример из документации, 1 из Усова, 1 из заметок профи. Примеры на свое усмотрение.
-
-struct ChessPlayer {
-    var name: String = "Игрок"
-    var victories: UInt = 0
-    init(name: String) {
+    init(name: String, dateOfBirth: String, skills: [String]) {
         self.name = name
+        self.dateOfBirth = dateOfBirth
+        self.skills = skills
     }
-    func description() {
-        print("Игрок \(name) имеет \(victories) побед")
+}
+
+var studentOne = Students(name: "Sergey", dateOfBirth: "01.10.1995", skills: ["Swift", "English"])
+
+struct Cat {
+
+    var name: String {
+        didSet {
+            if name != "" {
+                name = name.capitalized
+            }
+        }
+    }
+    let dateOfBirth: Int
+    var age: Int {
+        return 2023 - dateOfBirth
+    }
+    static let sound = "Miy"
+}
+
+let cat = Cat(name: "Sonya", dateOfBirth: 2015)
+Cat.sound
+cat.age
+cat.name
+cat.dateOfBirth
+
+
+/*
+3) Написать структуру "CreateTriangle",с двумя свойствами - угол A, угол C. И создать 2 вычисляемых свойства - те же угол А, угол С. И если мы записываем значения в эти углы - результатом должно быть значение третьего угла. Для простоты можно взять прямоугольный треугольник, сумма углов которого равна 180 градусов.
+*/
+
+struct CreateTriangle {
+    
+    let angleA: Double
+    let angleC: Double
+    var angleB: Double {
+        return 180 - (angleA + angleC)
     }
 }
 
-var andrey = ChessPlayer(name: "Андрей")
-andrey.description()
+let triangleOne = CreateTriangle(angleA: 45, angleC: 50)
 
-struct Resolution {
-    var width = 0
-    var height = 0
+print(triangleOne.angleB)
+
+
+/*
+ 4) Создать структуру "Резюме", у которой есть такие свойства:
+ - Фамилия,
+ - Имя.
+ - Должность,
+ - Опыт,
+ - Контактные данные(телефон, емейл),
+ - О себе(можно записать какие-то пару предложений
+ на выбор)
+ */
+
+struct Resume {
+    
+    var name: String {
+        didSet {
+            if name != "" {
+                name = name.capitalized
+            }
+        }
+    }
+    var surName: String {
+        didSet {
+            if surName != "" {
+                surName = surName.capitalized
+            }
+        }
+    }
+    let jobTitle: String
+    let exp: Double
+    let contactInfo: String
+    let info: String
 }
-class VideoMode {
-    var resolution = Resolution()
-    var interlaced = false
-    var frameRate = 0.0
-    var name: String?
+
+let firstResume = Resume(name: "Sergey", surName: "Angelov", jobTitle: "IOS Developer", exp: 3.5, contactInfo: "+7 (999) 857 18 83", info: "I love my job")
+
+print(firstResume)
+
+
+/*
+ 5) Задание на закрепление предыдущих тем: Создать журнал, что б можно было писать имя, фамилию и оценку. Поставить ограничения: имя и фамилия не выше 15 символов каждое. И оценка не выше 5. Если везде значения превышаться выдавать об этом Сообщения в консоль.
+ */
+
+struct Journal {
+    
+    var students = [String]()
+
+    mutating func writeJournal(name: String, surName: String, mark: Int) {
+        if name.count > 15 || surName.count > 15 {
+            print("Имя и фамилия  не больше 15 символов каждое!")
+            return
+        }
+
+        if mark < 1 || mark > 5 {
+            print("Оценка должна быть в диапазоне от 1 до 5!")
+            return
+        }
+
+        students += ["\(name) \(surName) - \(mark)"]
+        print(students)
+    }
 }
 
-let someResolution = Resolution()
-let someVideoMode = VideoMode()
+var journal = Journal()
 
-print("The width of someVideoMode is \(someVideoMode.resolution.width)")
+journal.writeJournal(name: "Сергей", surName: "Ангелов", mark: 5)
+journal.writeJournal(name: "ИннаСергеевнаАнгелова", surName: "Павлова", mark: 2)
+journal.writeJournal(name: "Эмиль", surName: "Джафаров", mark: 3)
+journal.writeJournal(name: "Ева", surName: "Ангелова", mark: 6)
+
+
+/*
+ 6) Написать класс, в котором есть 4 функции: -пустая, которая просто выводит сообщение через print,
+ - которая принимаете параметры и выводит их в консоль,
+ - которая принимает и возвращает параметры.
+ - которая принимает замыкание и распечатывает результаты в консоль
+ */
+
+class Example {
+    
+    func firstFunc() {
+        print("Empty")
+    }
+     
+    func secondFunc(age: Int) {
+        print(age)
+    }
+    
+    func thirdFunc(number: Int) -> Int {
+        return number * number
+    }
+    
+    func fourthFunc(closure: @escaping() -> String) {
+        print(closure())
+    }
+}
+
+let examples = Example()
+
+examples.firstFunc()
+examples.secondFunc(age: 2)
+examples.thirdFunc(number: 3)
+examples.fourthFunc { "Closure" }
