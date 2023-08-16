@@ -50,7 +50,7 @@ class Human {
     }
 }
 
-class Man: Human {
+final class Man: Human {
     
     var sex: String
     var age: Int
@@ -62,7 +62,7 @@ class Man: Human {
     }
 }
 
-class Woman: Human {
+final class Woman: Human {
     
     var age: Int
     var sex: String
@@ -82,7 +82,7 @@ let woman = Woman(sex: "W", name: "Inna", age: 28)
 3) Написать программу, в которой создать класс *House* в нем несколько свойств - *width*, *height* и несколько методов - *create*(выводит произведение свойств),*destroy*(отображает в принте что дом уничтожен).
 */
 
-class House {
+final class House {
     
     var width: Int
     var height: Int
@@ -105,7 +105,7 @@ class House {
 //4) Создайте класс с методом, который сортирует массив учеников.
 
 
-class Students {
+final class Students {
     
   var students = [String]()
 
@@ -117,19 +117,54 @@ class Students {
 
 //5) Написать свою структуру и класс, пояснить в комментариях - чем отличаются структуры от классов.
 
-class ExampleClass {
-    
-    var name = "Class"
-}
+/*
+ Отличие Class от Struct
+ 
+ 1. Типы значений быстрее, чем ссылочные типы(value быстрее потому, что хранится в стеке, доступ туда быстрее.
+ 2. Экземпляры типа значения безопасны в многопоточной среде, поскольку несколько потоков могут изменять экземпляр, не беспокоясь о состоянии гонки или взаимоброкировках.
+ 3. Тип значения не имеет ссылок в отличии от ссылочного типа. По этому нет утечек памяти(адрес в памяти, а ссылка ссылается на этот адрес)
+ 
+ Класс - ссылочный тип(есть одно место, куда ссылаются все экземпляры), а структура тип значения(каждый раз при копии экземпляра, создается новая копия)
+ Структуры не наследуются, а классы наследуются.
+ У структуры происходит автоинициализация, а у класса ее надо прописывать в ручную(init)
+ Классы хранятся в куче, а структуры в стеке.
+ У структуры нет deinit, а у класса есть.
+Если у вас есть метод внутри свойства или метода, которая меняет значение самой структур, мы должны его помечать как mutating. В классе этого делать не надо.
+ Так как только классы могут в ARC, структуры используют как базы данных, модели и тд.
+ */
 
-struct ExampleStruct {
+class People {
     
     var name: String
+    var age: Int
+    
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+        
+    }
 }
 
-//Структура в отличии от класса имеет встренный инициализатор.
-//Структура - Value type, Класс - Reference type.
-//Структруа - неизменяемая
+let people = People(name: "Evgen", age: 31)
+people.name = "123"
+
+//Классы не должны быть мутабельными, поэтому они могут быть let и позволять менять свойства
+
+struct People1 {
+    
+    var name: String
+    var age: Int
+    
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+var people2 = People1(name: "Evgen", age: 31)
+people.name = "123"
+
+//Структуры мутабельны, при каждом изменении они обновляются и обязательно нужно писать var
 
 
 //6) Обьяснить в коментариях есть ли у классов множественное наследование, и пояснить что это.
@@ -162,7 +197,8 @@ struct Resolution {
     var width = 0
     var height = 0
 }
-class VideoMode {
+
+final class VideoMode {
     var resolution = Resolution()
     var interlaced = false
     var frameRate = 0.0
@@ -173,3 +209,5 @@ let someResolution = Resolution()
 let someVideoMode = VideoMode()
 
 print("The width of someVideoMode is \(someVideoMode.resolution.width)")
+
+
