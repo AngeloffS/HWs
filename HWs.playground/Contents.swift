@@ -1,178 +1,249 @@
 import UIKit
 
-//1) Повторить то что было в уроке.
+//1) Повторите что было в уроке.
+
+//var str = "Index или Субскрипты"
+
+/*
+ 
+class ИмяКласса {
+ 
+ subscript(index: тип_Индекса) -> возвращаемый тип {
+      get {
+        возвратить значение и только чтение
+ }
+      set {
+        записать имяЗначения по индексу
+ }
+ }
+ }
+ 
+ */
+
+//var dic = ["key" : "value"]
+//dic["key"]
 //
-//class ParentsClass {
+//var array = ["mama", "papa"]
+//array[1]
 //
-//    var array = [String]()
+//struct Table {
 //
-//    var name = ""
-//    var age = 20
-//
-//    init(name: String, age: Int) {
-//        self.name = name
-//        self.age = age
+//    var multi: Int
+//    subscript(index: Int) -> Int {
+//        get {
+//            return multi * index
+//        }
 //    }
 //}
 //
-//class Son: ParentsClass {
+//var tableResult = Table(multi: 10)
+//tableResult[3]
 //
-//    func method(name: String) {
-//        print("Hello \(name)")
+//struct Man {
+//    var man1 = "man1: Hello"
+//    var man2 = "man2: Im good"
+//    var man3 = "man3: Hi"
+//
+//    subscript(index: Int) -> String? {
+//        get {
+//            switch index {
+//            case 0: return man1
+//            case 1: return man2
+//            case 2: return man3
+//            default: return ""
+//            }
+//        }
+//        set {
+//            var value = newValue ?? ""
+//
+//            switch index {
+//
+//            case 0: return man1 = value
+//            case 1: return man2 = value
+//            case 2: return man3 = value
+//            default: break
+//            }
+//        }
 //    }
 //}
 //
-//var sonClass = Son(name: "Iron", age: 30)
-//
-//sonClass.name
-//sonClass.method(name: "Jack")
-//
-//sonClass.name = "Jack"
-//sonClass.age
+//var say = Man()
+//say[1] = "Hi Bob"
 //
 //
-//struct NameStruct {
-//    var name: String
-//    var age: Int
+////2) Зайти в документацию и Выпишите окло 5 примеров.
+//
+//struct TimesTable {
+//    let multiplier: Int
+//    subscript(index: Int) -> Int {
+//        return multiplier * index
+//    }
 //}
 //
-//var str = NameStruct(name: "Max", age: 20)
+//let threeTimesTable = TimesTable(multiplier: 3)
+//print("шесть умножить на три будет \(threeTimesTable[6])")
+//
+//struct Matrix {
+//    let rows: Int, columns: Int
+//    var grid: [Double]
+//    init(rows: Int, columns: Int) {
+//        self.rows = rows
+//        self.columns = columns
+//        grid = Array(repeating: 0.0, count: rows * columns)
+//    }
+//
+//    func indexIsValid(row: Int, column: Int) -> Bool {
+//        return row >= 0 && row < rows && column >= 0 && column < columns }
+//
+//    subscript(row: Int, column: Int) -> Double {
+//        get {
+//            assert(indexIsValid(row: row, column: column), "Index out of range")
+//            return grid[(row * columns) + column]
+//        }
+//        set {
+//            assert(indexIsValid(row: row, column: column), "Index out of range")
+//            grid[(row * columns) + column] = newValue
+//        }
+//    }
+//}
+//
+//var matrix = Matrix(rows: 2, columns: 2)
+//
+//matrix[0, 1]
+//
+//enum Planet: Int {
+//    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+//    static subscript(n: Int) -> Planet {
+//        return Planet(rawValue: n)!
+//    }
+//}
+//let mars = Planet[4]
+//print(mars)
 
 
-//2) Создать класс родитель и 2 класса наследника.
+/*
+ 3) Создать класс в котором будет массив в котором – «мама» «папа» и «дети». Создать sabscript для этого класса что б у класса был доступ как у массива по индексу.
+ */
+
+final class Family {
+    
+    let family = ["Мама", "Папа", "Дочь", "Сын"]
+    
+    subscript(member: Int) -> String {
+        get {
+            return family[member]
+        }
+    }
+}
+
+let family = Family()
+
+family[0]
+family[1]
+family[2]
+family[3]
+
+
+//4) Создать сабскрипт который будет принимать число умножать его на 100 и делить на 2.
+
+struct Calculate {
+    
+    var number = 100
+    subscript(index: Int) -> Int {
+        index * number / 2
+    }
+}
+
+let result = Calculate()
+
+result[2]
+
+
+//5) Создать свой subscript у которого внутри есть оператор if else.
+
+struct Example {
+    
+    var name: String
+    
+    subscript(logIn: Bool) -> String {
+        if logIn {
+            return "Welcome \(name.capitalized)!"
+        } else {
+            return "Sorry! Invalid Username/Password..."
+        }
+    }
+}
+
+let userOne = Example(name: "sergey")
+
+userOne[true]
+userOne[false]
+
+
+//6) Создать класс Human и в нем 3 проперти имя , возраст пол.
 
 class Human {
     
     var name: String
-    
-    init(name: String) {
-        self.name = name
-    }
-}
-
-final class Man: Human {
-    
-    var sex: String
-    var age: Int
-    
-    init(sex: String, name: String, age: Int) {
-        self.sex = sex
-        self.age = age
-        super.init(name: name)
-    }
-}
-
-final class Woman: Human {
-    
     var age: Int
     var sex: String
     
-    init(sex: String, name: String, age: Int) {
-        self.age = age
-        self.sex = sex
-        super.init(name: name)
-    }
-}
-
-let man = Man(sex: "M", name: "Sergey", age: 27)
-let woman = Woman(sex: "W", name: "Inna", age: 28)
-
-
-/*
-3) Написать программу, в которой создать класс *House* в нем несколько свойств - *width*, *height* и несколько методов - *create*(выводит произведение свойств),*destroy*(отображает в принте что дом уничтожен).
-*/
-
-final class House {
-    
-    var width: Int
-    var height: Int
-    
-    func create() {
-        width * height
+    var from: String {
+        "I' am from"
     }
     
-    func destroy() {
-        print("House has been destroyed!")
-    }
-    
-    init(width: Int, height: Int) {
-        self.width = width
-        self.height = height
-    }
-}
-
-
-//4) Создайте класс с методом, который сортирует массив учеников.
-
-
-final class Students {
-    
-  var students = [String]()
-
-  func sortStudents() {
-    self.students = self.students.sorted()
-  }
-}
-
-
-//5) Написать свою структуру и класс, пояснить в комментариях - чем отличаются структуры от классов.
-
-/*
- Отличие Class от Struct
- 
- 1. Типы значений быстрее, чем ссылочные типы(value быстрее потому, что хранится в стеке, доступ туда быстрее.
- 2. Экземпляры типа значения безопасны в многопоточной среде, поскольку несколько потоков могут изменять экземпляр, не беспокоясь о состоянии гонки или взаимоброкировках.
- 3. Тип значения не имеет ссылок в отличии от ссылочного типа. По этому нет утечек памяти(адрес в памяти, а ссылка ссылается на этот адрес)
- 
- Класс - ссылочный тип(есть одно место, куда ссылаются все экземпляры), а структура тип значения(каждый раз при копии экземпляра, создается новая копия)
- Структуры не наследуются, а классы наследуются.
- У структуры происходит автоинициализация, а у класса ее надо прописывать в ручную(init)
- Классы хранятся в куче, а структуры в стеке.
- У структуры нет deinit, а у класса есть.
-Если у вас есть метод внутри свойства или метода, которая меняет значение самой структур, мы должны его помечать как mutating. В классе этого делать не надо.
- Так как только классы могут в ARC, структуры используют как базы данных, модели и тд.
- */
-
-class People {
-    
-    var name: String
-    var age: Int
-    
-    init(name: String, age: Int) {
+    init(name: String, age: Int, sex: String) {
         self.name = name
         self.age = age
+        self.sex = sex
+        
+    }
+    
+    func autibiography() {
+         print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex)")
+    }
+}
+
+
+//7) Создать ещё 2 класса которые наследуются от класса Human и переопределить методы и свойства .
+
+final class UserOne: Human {
+    
+    override var from: String {
+        super.from + " " + "Mars"
+    }
+    
+    override func autibiography() {
+        print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex) - man")
         
     }
 }
 
-let people = People(name: "Evgen", age: 31)
-people.name = "123"
-
-//Классы не должны быть мутабельными, поэтому они могут быть let и позволять менять свойства
-
-struct People1 {
+final class UserTwo: Human {
     
-    var name: String
-    var age: Int
+    override var from: String {
+        super.from + " " + "Venus"
+    }
     
-    init(name: String, age: Int) {
-        self.name = name
-        self.age = age
+    override func autibiography() {
+        print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex) - woman")
+        
     }
 }
 
-var people2 = People1(name: "Evgen", age: 31)
-people.name = "123"
-
-//Структуры мутабельны, при каждом изменении они обновляются и обязательно нужно писать var
-
-
-//6) Обьяснить в коментариях есть ли у классов множественное наследование, и пояснить что это.
-
-//Да, у классов есть множественное наследование. Это когда классы могут наследоваться друг от друга это и называется множественное наследование. Это позволяет создать иерархию классов.
+let firstUser = UserOne(name: "Sergey", age: 28, sex: "M")
+firstUser.autibiography()
+firstUser.from
 
 
-//7) Обьяснить может ли структуры наследоваться.
+//8) Создать дикшинари который хранит все типы данных которые вы знаете, а ключ должен быть только строка.
+
+let types: [String : Any] = [
+    "Bool": Bool(),
+    "Int": Int(),
+    "Float": Float(),
+    "Double": Double(),
+    "String": String()]
 
 //Нет, они не наследуются, но как и классы могут принимать протоколы.
 
