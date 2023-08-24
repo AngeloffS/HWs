@@ -1,284 +1,164 @@
 import UIKit
 
-//1) Повторите что было в уроке.
+/* a).Найти информацию что такое наследование в Google, перефразировать эту информацию своими словами и вставить это в плейграунд в закомментировано" виде. */
 
-//var str = "Index или Субскрипты"
-
-/*
- 
-class ИмяКласса {
- 
- subscript(index: тип_Индекса) -> возвращаемый тип {
-      get {
-        возвратить значение и только чтение
- }
-      set {
-        записать имяЗначения по индексу
- }
- }
- }
- 
- */
-
-//var dic = ["key" : "value"]
-//dic["key"]
-//
-//var array = ["mama", "papa"]
-//array[1]
-//
-//struct Table {
-//
-//    var multi: Int
-//    subscript(index: Int) -> Int {
-//        get {
-//            return multi * index
-//        }
-//    }
-//}
-//
-//var tableResult = Table(multi: 10)
-//tableResult[3]
-//
-//struct Man {
-//    var man1 = "man1: Hello"
-//    var man2 = "man2: Im good"
-//    var man3 = "man3: Hi"
-//
-//    subscript(index: Int) -> String? {
-//        get {
-//            switch index {
-//            case 0: return man1
-//            case 1: return man2
-//            case 2: return man3
-//            default: return ""
-//            }
-//        }
-//        set {
-//            var value = newValue ?? ""
-//
-//            switch index {
-//
-//            case 0: return man1 = value
-//            case 1: return man2 = value
-//            case 2: return man3 = value
-//            default: break
-//            }
-//        }
-//    }
-//}
-//
-//var say = Man()
-//say[1] = "Hi Bob"
-//
-//
-////2) Зайти в документацию и Выпишите окло 5 примеров.
-//
-//struct TimesTable {
-//    let multiplier: Int
-//    subscript(index: Int) -> Int {
-//        return multiplier * index
-//    }
-//}
-//
-//let threeTimesTable = TimesTable(multiplier: 3)
-//print("шесть умножить на три будет \(threeTimesTable[6])")
-//
-//struct Matrix {
-//    let rows: Int, columns: Int
-//    var grid: [Double]
-//    init(rows: Int, columns: Int) {
-//        self.rows = rows
-//        self.columns = columns
-//        grid = Array(repeating: 0.0, count: rows * columns)
-//    }
-//
-//    func indexIsValid(row: Int, column: Int) -> Bool {
-//        return row >= 0 && row < rows && column >= 0 && column < columns }
-//
-//    subscript(row: Int, column: Int) -> Double {
-//        get {
-//            assert(indexIsValid(row: row, column: column), "Index out of range")
-//            return grid[(row * columns) + column]
-//        }
-//        set {
-//            assert(indexIsValid(row: row, column: column), "Index out of range")
-//            grid[(row * columns) + column] = newValue
-//        }
-//    }
-//}
-//
-//var matrix = Matrix(rows: 2, columns: 2)
-//
-//matrix[0, 1]
-//
-//enum Planet: Int {
-//    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
-//    static subscript(n: Int) -> Planet {
-//        return Planet(rawValue: n)!
-//    }
-//}
-//let mars = Planet[4]
-//print(mars)
+//Наследование - механизм благодаря которому можно создать новый класс, на базе уже существующего.
 
 
-/*
- 3) Создать класс в котором будет массив в котором – «мама» «папа» и «дети». Создать sabscript для этого класса что б у класса был доступ как у массива по индексу.
- */
+//b).Сделать то же самое с понятием Инкапсуляция.
 
-final class Family {
+//Инкапсуляция - скрытие объектов внутри класса.
+
+
+//c).И так же с понятием полиморфизм.
+
+//Полиморфизм - переиспользование одного и того же метода/свойства для разных типов данных.
+
+
+//1) Создать класс "люди", в этом классе 4 property - "имя", "рост", "вес", "пол", а также будет иметь метод "say(говорит)".
+
+class Peoples {
     
-    let family = ["Мама", "Папа", "Дочь", "Сын"]
+   var name:String
+   var height: Double
+   var weight: Double
+   var sex: String
     
-    subscript(member: Int) -> String {
-        get {
-            return family[member]
-        }
-    }
-}
-
-let family = Family()
-
-family[0]
-family[1]
-family[2]
-family[3]
-
-
-//4) Создать сабскрипт который будет принимать число умножать его на 100 и делить на 2.
-
-struct Calculate {
-    
-    var number = 100
-    subscript(index: Int) -> Int {
-        index * number / 2
-    }
-}
-
-let result = Calculate()
-
-result[2]
-
-
-//5) Создать свой subscript у которого внутри есть оператор if else.
-
-struct Example {
-    
-    var name: String
-    
-    subscript(logIn: Bool) -> String {
-        if logIn {
-            return "Welcome \(name.capitalized)!"
-        } else {
-            return "Sorry! Invalid Username/Password..."
-        }
-    }
-}
-
-let userOne = Example(name: "sergey")
-
-userOne[true]
-userOne[false]
-
-
-//6) Создать класс Human и в нем 3 проперти имя , возраст пол.
-
-class Human {
-    
-    var name: String
-    var age: Int
-    var sex: String
-    
-    var from: String {
-        "I' am from"
-    }
-    
-    init(name: String, age: Int, sex: String) {
+    init(name: String, height: Double, weight: Double, sex: String) {
         self.name = name
-        self.age = age
+        self.height = height
+        self.weight = weight
         self.sex = sex
-        
     }
     
-    func autibiography() {
-         print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex)")
+    func say() {
+        print("Говорит ...")
     }
 }
 
 
-//7) Создать ещё 2 класса которые наследуются от класса Human и переопределить методы и свойства .
+/* 2) Создать subСlass (наследники) "повар", "менеджер", "борец" и переопределить метод "say(говорит)" в каждом из этих классов. */
 
-final class UserOne: Human {
+final class Cook: Peoples {
     
-    override var from: String {
-        super.from + " " + "Mars"
+    override func say() {
+        print("Я готовлю стейк!")
+    }
+}
+
+final class Manager: Peoples {
+    
+    override func say() {
+        print("Я продаю бои!")
+    }
+}
+
+final class Wrestler: Peoples {
+    
+    override func say() {
+        print("Иди сюда леее!")
+    }
+}
+ 
+
+//3) Создать по одному объекту(экземпляру) каждого класса и объединить их в массив.
+
+let cook = Cook(name: "Nusret", height: 170.2, weight: 73.5, sex: "M")
+let manager = Manager(name: "AliAbdelaziz", height: 175.1, weight: 66.4, sex: "M")
+let wrestler = Wrestler(name: "HabibNurmagamedov", height: 177.3, weight: 70.1, sex: "M")
+
+var arrayPeoples = [cook, manager, wrestler]
+
+
+/* 4) В цикле “for in” пройти по всем элементам массива и вывести в консоль все характеристики каждого объекта (имя, рост и тд) и у каждого вызвать метод "say(говорит)". */
+
+for people in arrayPeoples {
+
+    print("Name - \(people.name), \nHeight - \(people.height), \nWeight - \(people.weight).")
+    people.say()
+}
+
+
+/* 5) Создать еще одного наследника от super Class, добавить в него пару новых свойств, добавить в массив и в цикле вывода вывести его свойства как дополнение к свойствам People. 6) Метод "say(говорит)" реализовать таким образом, чтобы перед тем как выполнить собственный method say, выполнялся сначала метод say класса People. */
+
+final class IosDeveloper: Peoples {
+    
+    var age: Int
+    var exp: Double
+    
+    init(name: String, height: Double, weight: Double, sex: String, age: Int, exp: Double) {
+        self.age = age
+        self.exp = exp
+        super.init(name: name, height: height, weight: weight, sex: sex)
     }
     
-    override func autibiography() {
-        print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex) - man")
-        
+    override func say() {
+        super.say()
+        print("Я делаю нормальный Яндекс Навигатор!")
     }
 }
 
-final class UserTwo: Human {
+let iosDeveloper = IosDeveloper(name: "Sergey", height: 185.2, weight: 111.1, sex: "M", age: 27, exp: 0.001)
+
+arrayPeoples.append(iosDeveloper)
+
+for people in arrayPeoples where people === iosDeveloper {
+    print("Name - \(people.name), \nHeight - \(people.height), \nWeight - \(people.weight), \nAge - \(iosDeveloper.age), \nExpirience - \(iosDeveloper.exp).")
+    people.say()
+}
+
+
+//7) Вывести все это в обратном порядке(Google в помощь).
+
+for (index, value) in arrayPeoples.enumerated().reversed() {
+    print(index + 1, value.name)
+}
+
+
+/* 8) Создать класс "Марсианин" (не наследник класса people!) со своими собственными property (отличными от people) и методом "say" (отличным от people). */
+
+class Martian {
     
-    override var from: String {
-        super.from + " " + "Venus"
+    private var color: String
+    private var starShip: String
+    
+    init(color: String, starShip: String) {
+        self.color = color
+        self.starShip = starShip
     }
     
-    override func autibiography() {
-        print("Hello my name is \(name.capitalized).I'm \(age) years old and I'm \(sex) - woman")
-        
+    func sayAny() {
+        print("Мы пришли с миром!")
     }
 }
 
-let firstUser = UserOne(name: "Sergey", age: 28, sex: "M")
-firstUser.autibiography()
-firstUser.from
 
+//9) Унаследоваться от него и создать пару других классов (Инопланетян) с переопределенным методом "say".
 
-//8) Создать дикшинари который хранит все типы данных которые вы знаете, а ключ должен быть только строка.
-
-let types: [String : Any] = [
-    "Bool": Bool(),
-    "Int": Int(),
-    "Float": Float(),
-    "Double": Double(),
-    "String": String()]
-
-//Нет, они не наследуются, но как и классы могут принимать протоколы.
-
-
-// 8) Выписать по 1 пример из документации, 1 из Усова, 1 из заметок профи. Примеры на свое усмотрение.
-
-struct ChessPlayer {
-    var name: String = "Игрок"
-    var victories: UInt = 0
-    init(name: String) {
-        self.name = name
-    }
-    func description() {
-        print("Игрок \(name) имеет \(victories) побед")
+final class GreenPeoples: Martian {
+    
+    override func sayAny() {
+        print("Мы зеленые человечки!")
     }
 }
 
-var andrey = ChessPlayer(name: "Андрей")
-andrey.description()
+let greenPeople = GreenPeoples(color: "Grey", starShip: "FlyingSaucer")
 
-struct Resolution {
-    var width = 0
-    var height = 0
+final class Humanoids: Martian {
+    
+    override func sayAny() {
+        print("Всем привет!")
+    }
 }
 
-final class VideoMode {
-    var resolution = Resolution()
-    var interlaced = false
-    var frameRate = 0.0
-    var name: String?
-}
+let humanoid = Humanoids(color: "Black", starShip: "Pepelaс")
 
-let someResolution = Resolution()
-let someVideoMode = VideoMode()
 
-print("The width of someVideoMode is \(someVideoMode.resolution.width)")
+//10) Объединить всех people и Марсианинов) в один массив.
+
+let arrayAliens = [humanoid, greenPeople]
+
+var arrayFriendship: [Any] = arrayAliens + arrayPeoples
+
 
 
