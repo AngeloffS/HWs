@@ -1,329 +1,345 @@
 import UIKit
 
-/*
- 1) Прочитать документацию по уроку из:
- https:// developer.apple.com
- swiftbook.ru.
- Выписать 5 примеров
- */
-
-//final class Person {
-//    var residence: Residence?
-//}
+////1) Постарайтесь по больше по практиковаться, повторите то, что есть в видео.
 //
-//final class Residence {
-//    var numberOfRooms = 1
-//}
+////Определение классовой иерархии для приведения типов
 //
-//let john = Person()
+//class Media {
+//    var name: String
 //
-//if let roomCount = john.residence?.numberOfRooms {
-//    print("John's residence has \(roomCount) room(s).")
-//} else {
-//    print("Unable to retrieve the numbers of rooms.")
-//}
-//
-//john.residence = Residence()
-//
-//if let roomCount = john.residence?.numberOfRooms {
-//    print("John's residence has \(roomCount) room(s).")
-//} else {
-//    print("Unable to retrieve the numbers of rooms.")
-//}
-
-//
-//final class Person {
-//    var residence: Residence?
-//}
-//
-//final class Residence {
-//    var rooms = [Room]()
-//    var numberOfRooms: Int {
-//        return rooms.count
-//    }
-//    subscript(i: Int) -> Room {
-//        get {
-//            return rooms[i]
-//        }
-//        set {
-//            rooms[i] = newValue
-//        }
-//    }
-//    func printNumberOfRooms() {
-//        print("Общее количество комнат равно \(numberOfRooms)")
-//    }
-//    var address: Address?
-//}
-
-//final class Room {
-//    let name: String
 //    init(name: String) {
 //        self.name = name
 //    }
 //}
 //
-//final class Address {
-//    var buildingName: String?
-//    var buildingNumber: String?
-//    var street: String?
-//    func buildingIdentifier() -> String? {
-//        if let buildingNumber = buildingNumber, let street = street {
-//            return "\(buildingNumber) \(street)"
-//        } else if buildingName != nil {
-//            return buildingName
-//        } else {
-//            return nil
-//        }
+//class Film: Media {
+//    var director: String
+//
+//    init(name: String, director: String) {
+//        self.director = director
+//        super.init(name: name)
 //    }
 //}
 //
-//let someAddress = Address()
-//someAddress.buildingNumber = "29"
-//someAddress.street = "Acacia Road"
-//john.residence?.address = someAddress
-
-
-//2) Повторить то, что есть в видео.
-
-//final class Adress {
-//    let street = "Тверская"
-//    let number = 18
-//}
+//class Music: Media {
+//    var artist: String
 //
-//final class Home {
-//    let adress = Adress()
-//    let room: Int? = 3
-//    var parking: Parking? = Parking()
-//    func printRooms() {
-//        print("The number of rooms is \(room)")
+//    init(name: String, artist: String) {
+//        self.artist = artist
+//        super.init(name: name)
 //    }
 //}
 //
-//struct Parking {
-//    var carPlace = 5
+//let mediaArray: [Media] = [Film.init(name: "Casablanca", director: "Michael"),
+//                           Music.init(name: "Blue Shies", artist: "Elvis Presley"),
+//                           Film.init(name: "Kane", director: "Citrizen"),
+//                           Music.init(name: "The only", artist: "Chesney"),
+//                           Film.init(name: "Never Gonna ", director: "Rick Astley")]
+//
+////Проверка типов
+//
+//var count = (musicCount: 0, filmCount: 0)
+//
+//for obj in mediaArray {
+//    if obj is Film {
+//        count.filmCount += 1
+//    } else if obj is Music {
+//        count.musicCount += 1
+//    }
 //}
 //
-//final class Parents {
-//    var cars: [String]? = ["Mercedes"]
-//    var home: Home? = Home()
+//print("В Вашем плеере находится \(count.filmCount) фильмов и \(count.musicCount) песен")
+//
+////Понижающее привидение
+//
+//for value in mediaArray {
+//
+//    if let musics = value as? Music {
+//        print("Song \(musics.name) by \(musics.artist)")
+//    } else if let films = value as? Film {
+//        print("Movie \(films.name) dir \(films.director)")
+//    }
 //}
-//
-//let parents = Parents()
-//
-//parents.home?.parking?.carPlace
-//
-//if (parents.home?.parking?.carPlace) != nil {
-//    print("Property установлено")
-//} else {
-//    print("Property не установлено")
-//}
-//
-//parents.cars?[0]
-//
-//if (parents.home?.printRooms()) != nil {
-//    print("Комнату уже можно печатать")
-//} else {
-//    print("Комнату нельзя печатать")
-//}
+
+
+//2) Зайти обязательно и познакомиться с документацией.
 
 
 /*
- 3) Сделать класс Люди, у класса будут проперти родственники, соседи и т.д. (все опциональные).
- 3.1) Создать нужно от 15 человек.
- 3.2) Посчитать, сколько у этого человека двоюродных братьев, троюродных сестёр, теть, дядь, и т.д.
- */
+3) Я как заказчик даю вам разработчику задания сделать : Библиотеку книг и видео библиотеку фильмов Реализовать:
+3.1 Возможность добавлять новые книги и фильмы и после добавления должна происходить автоматическая сортировка по алфавиту в пределах жанра.
+3.2 Метод- "Sort by mood" - фильмы должны быть отсортировать по настроению.
+3.3 Такой же метод придумать для книг.
+3.4 Возможность удалять книги.
+3.5 Выводить количество фильмов и книг в библиотеке
+3.6 Выводить количество книг по жанрам
+3.7 Выводить количество фильмов по жанрам
+3.8 Выводить уведомление о местонахождении книги, фильма (на руках, в библиотеке)
+3.9 У каждой книги и фильма должны быть запись о людях, бравших ее ранее с указанием имени, даты выдачи и даты возврата.
+3.10 Метод, который выводит адрес библиотеки и контактные данные.
+3.11 Предусмотреть механизм, запрещающий выдачу отсутствующих и забранных книг.
+3.12 Одному человеку запрещается иметь на руках более 5 книг, и более 3 фильмов.
+*/
 
-final class People {
-    
-    var name = String()
-    var parents: Parents? = Parents()
-    var relatives: Relatives? = Relatives()
-    var neighbours: Neighbours? = Neighbours()
-    
-    init(name: String) {
-        self.name = name.capitalized
-    }
+enum Mood {
+    case happy
+    case norm
+    case sad
 }
 
-final class Parents {
-    
-    var parent: [String]? = ["Victor", "Elena"]
-}
-
-final class Relatives {
-    
-    var ucnles: [String]? = ["Evgeniy", "Vitaliy"]
-    var aunts: [String]? = ["Mariya", "Svetlana"]
-    var brother: [String]? = ["Alex"]
-    var sister: [String]? = ["Ann"]
-}
-
-final class Neighbours {
-    
-    var neigh: [String]? = ["Bek","Aydana", "Pavel", "Kristina", "Natalia", "Dmitry", "Yana"]
-}
-
-let peo = People(name: "Sergey")
-let par = Parents()
-let rel = Relatives()
-let nei = Neighbours()
-
-let countParents = par.parent?.count
-let countUncles = rel.ucnles?.count
-let countAunts = rel.aunts?.count
-let countBrothers = rel.brother?.count
-let countSisters = rel.sister?.count
-let countNeighbours = nei.neigh?.count
-
-if countParents != nil {
-    print("У \(peo.name) \(countParents!) родитель(ей)")
-} else {
-    print("\(peo.name) из детдома:(")
-}
-
-if countUncles != nil {
-    print("У \(peo.name) \(countUncles!) дядя(ь)")
-} else {
-    print("\(peo.name) нет дядь.")
-}
-
-if countAunts != nil {
-    print("У \(peo.name) \(countAunts!) тетя(ь)")
-} else {
-    print("\(peo.name) нет теть.")
-}
-
-if countBrothers != nil {
-    print("У \(peo.name) \(countBrothers!) брат(ьев)")
-} else {
-    print("\(peo.name) нет брата(ьев).")
-}
-
-if countSisters != nil {
-    print("У \(peo.name) \(countSisters!) сестра(ер)")
-} else {
-    print("\(peo.name) нет сестры(ер).")
-}
-
-if countNeighbours != nil {
-    print("У \(peo.name) \(countNeighbours!) сосед(ей)")
-} else {
-    print("\(peo.name) нет соседа(ей).")
-}
-
-
-//4) Создать класс животные и проперти - корова, коза, собака и т.д. Создать класс растения и проперти - трава, цветы и т.д.
-
-final class Animals {
-    
-    private let animals: [String] = ["Korova", "Koza", "Sobaka"]
-}
-
-final class Plants {
-    
-    private let plants: [String] = ["Derevo", "Cveti", "Trava"]
-}
-
-//5) Положить все классы массив и отсортировать по алфавиту и по классу - Люди - животные - растения
-
-let classes: [Any] = [
-    Parents(),
-    Relatives(),
-    Neighbours(),
-    Animals(),
-    Plants()
-]
-
-let sortedArray = classes.sorted { $0 is People && $1 is Animals || $0 is Animals && $1 is Plants }
-
-let sortedParrents = classes.filter { $0 is Parents }
-let sortedRelatives = classes.filter { $0 is Relatives }
-let sortedNeighbours = classes.filter { $0 is Neighbours }
-let sortedAnimals = classes.filter { $0 is Animals }
-let sortedPlants = classes.filter { $0 is Plants }
-
-
-/*
-6) Создать 3 класса Rectangle, Circle, Radius
-Класс Квадрат свойства: circle: Circle?
-Класс Radius свойства: radiusName: String
- Класс Circle свойства: area = [Radius]()
- 6.1 Для класса Circle добавить вычисляемое свойство, выводящее количество элементов в area
- 6.2 Для класса Circle добавить сабскрипт
-геттер возвращает запрашиваем элемент
-сеттер добавляет новый элемент в area
- 6.3 Для класса Circle добавить функцию выводящую количество элементов в area
- 6.4 Создать метод класса, для каждого из 3 классов, который описывает для чего этот класс предназначен.
- Создать экземпляры классов.Показать различные опциональные цепочки используя экземпляры классов, их методы и функции.
- Перед выводом в консоль результатов избавляемся от опционала.
- */
-
-final class Rectangle {
-    
-    var circle: Circle?
-    
-    static func aboutRectangle() {
-        print("Этот класс описывает квадрат")
-    }
-}
-
-final class Circle {
-    
-    var area = [Radius]()
-    lazy var areaCount = {
-        return self.area.count
+class Media {
+    enum Genre: String, CaseIterable {
+        case action
+        case comedy
+        case drama
+        case melodramma
+        case fantasy
+        case horror
+        case thriller
+        case historical
     }
     
-    subscript(radiusName: String) -> Radius? {
-        get {
-            return area.first { $0.radiusName == radiusName }
-        }
-        set {
-            area += [Radius(radiusName: radiusName)]
+    var genre: Genre
+    var name: String
+    var mood: Mood
+    var isAvailable: Bool = true
+    var history: [(name: String, date: String)] = []
+    
+    init(genre: Genre, name: String, mood: Mood) {
+        self.genre = genre
+        self.name = name
+        self.mood = mood
+    }
+}
+    
+    final class Book: Media {
+        var author: String
+        
+        init(genre: Genre, name: String, mood: Mood, author: String) {
+            self.author = author
+            super.init(genre: genre, name: name, mood: mood)
         }
     }
     
-    func printArea() {
-        print("\(area.count) элементов")
+    final class Movie: Media {
+        var director: String
+        
+        init(genre: Genre, name: String, mood: Mood, director: String) {
+            self.director = director
+            super.init(genre: genre, name: name, mood: mood)
+        }
     }
     
-    static func aboutCircle() {
-        print("Этот класс описывает круг")
+    final class Library {
+        var books = [Book]()
+        
+        var customerJournal = [String: (books: Int, movies: Int)]()
+        
+        func addBook(_ book: Book) {
+            self.books.append(book)
+            books.sort { $0.genre.rawValue < $1.genre.rawValue && $0.name < $1.name }
+        }
+        
+        func sortByMood(mood: Mood) -> [Book] {
+            var moodArray = [Book]()
+            moodArray = self.books.filter { $0.mood == mood }
+            return moodArray
+        }
+        
+        func deleteBook(_ name: String) {
+            guard let bookIndex = books.firstIndex(where: { $0.name == name }) else {
+                print("The book was not found!")
+                return
+            }
+            books.remove(at: bookIndex)
+        }
+        
+        func quanity() {
+            print("There are \(books.count) books in this library.")
+        }
+        
+        func quanityBooksByGenre() {
+            var booksByGenre: [Media.Genre: Int] = [:]
+            for genre in Media.Genre.allCases {
+                for book in books {
+                    if book.genre == genre {
+                        booksByGenre[genre]? += 1
+                    }
+                }
+            }
+            print(booksByGenre)
+        }
+        
+        func bookLocation(_ media: Media) {
+            media.isAvailable ? print("This book is available in library") : print("This book is unavailable")
+        }
+        
+        func takeBook(media: Media, name: String) {
+                checkIsAvailable(media: media, name: name)
+            }
+        
+        func validateBook(media: Media, name: String) {
+            validateCustomer(media: media, name: name)
+            
+            media.isAvailable = false
+            media.history += [(name, "Take away \(Date())")]
+            writeHistory(media: media, name: name)
+        }
+        
+        func validateCustomer(media: Media, name: String) {
+            guard let customer = customerJournal[name] else { return }
+            if customer.books == 5 && media is Book {
+                print("You already have 5 books. Please return one first!")
+            }
+        }
+        
+        func writeHistory(media: Media, name: String) {
+            if media is Book {
+                guard let _ = customerJournal[name] else {
+                    customerJournal[name] = (1, 0)
+                    return
+                }
+                customerJournal[name]?.books += 1
+            }
+        }
+        
+        func checkIsAvailable(media: Media, name: String) {
+            media.isAvailable ? validateBook(media: media, name: name) : print("Sorry! Book has already taken away.")
+        }
+        
+        func returnBook(media: Media, name: String) {
+            media.isAvailable = true
+            media.history += [(name, "Returned \(Date())")]
+            if media is Book {
+                customerJournal[name]?.books -= 1
+            }
+        }
+        
+        func printAdress() {
+            print("3/5 Vozdvizhenka Street, Moscow, Russia")
+        }
     }
-}
 
-final class Radius {
-    
-    var radiusName: String
-    
-    init(radiusName: String) {
-        self.radiusName = radiusName
+    final class Cinema {
+        var movies = [Movie]()
+        
+        var customerJournal = [String: (movies: Int, books: Int)]()
+        
+        func addMovie(_ movie: Movie) {
+            self.movies.append(movie)
+            movies.sort { $0.genre.rawValue < $1.genre.rawValue && $0.name < $1.name }
+        }
+        
+        func sortByMood(mood: Mood) -> [Movie] {
+            var moodArray = [Movie]()
+            moodArray = self.movies.filter { $0.mood == mood }
+            return moodArray
+        }
+        
+        func deleteMovie(_ name: String) {
+            guard let movieIndex = movies.firstIndex(where: { $0.name == name }) else {
+                print("The movie was not found!")
+                return
+            }
+            movies.remove(at: movieIndex)
+        }
+        
+        func quanity() {
+            print("There are \(movies.count) movies in this cinema.")
+        }
+        
+        func quanityMoviesByGenre() {
+            var moviesByGenre: [Media.Genre: Int] = [:]
+            for genre in Media.Genre.allCases {
+                for movie in movies {
+                    if movie.genre == genre {
+                        moviesByGenre[genre]? += 1
+                    }
+                }
+            }
+            print(moviesByGenre)
+        }
+        
+        func movieLocation(_ media: Media) {
+            media.isAvailable ? print("This movie is available in cinema") : print("This movie is not available")
+        }
+        
+        func takeMovie(media: Media, name: String) {
+                checkIsAvailable(media: media, name: name)
+            }
+        
+        func validateMovie(media: Media, name: String) {
+            validateCustomer(media: media, name: name)
+            
+            media.isAvailable = false
+            media.history += [(name, "Take away \(Date.now.description)")]
+            writeHistory(media: media, name: name)
+        }
+        
+        func validateCustomer(media: Media, name: String) {
+            guard let customer = customerJournal[name] else { return }
+            if customer.movies == 3 && media is Movie {
+                print("You already have 3 movies. Please return one first!")
+            }
+        }
+        
+        func writeHistory(media: Media, name: String) {
+            if media is Movie {
+                guard let _ = customerJournal[name] else {
+                    customerJournal[name] = (1, 0)
+                    return
+                }
+                customerJournal[name]?.movies += 1
+            }
+        }
+        
+        func checkIsAvailable(media: Media, name: String) {
+            media.isAvailable ? validateMovie(media: media, name: name) : print("Sorry! Movie has already taken away.")
+        }
+        
+        func returnMovie(media: Media, name: String) {
+            media.isAvailable = false
+            media.history += [(name, "Returned \(Date.now.description)")]
+            if media is Movie {
+                customerJournal[name]?.movies -= 1
+            }
+        }
+        
+        func printAdress() {
+            print("12 Mezhdunarodnaya str., Krasnogorsk")
+        }
     }
+
+let library = Library()
+let cinema = Cinema()
+
+let theUnstoppable = Movie(genre: .action, name: "Unstoppable", mood: .norm, director: "Sylvester Stallone")
+let titanic = Movie(genre: .drama, name: "Titanic", mood: .sad, director: "James Cameron")
+let oceansEleven = Movie(genre: .thriller, name: "Ocean's eleven", mood: .happy, director: "Steven Sodenberg")
+
+cinema.addMovie(titanic)
+cinema.addMovie(theUnstoppable)
+cinema.addMovie(oceansEleven)
+
+cinema.takeMovie(media: theUnstoppable, name: "Sergey")
+print(cinema.customerJournal)
+cinema.returnMovie(media: theUnstoppable, name: "Sergey")
+print(cinema.customerJournal)
     
-    static func aboutRadius() {
-        print("Этот класс описывает радиус")
-    }
+let bibly = Book(genre: .historical, name: "Bibly", mood: .happy, author: "God")
+let greenMile = Book(genre: .melodramma, name: "Green mile", mood: .norm, author: "Steven King")
+let gamlet = Book(genre: .drama, name: "Gamlet", mood: .sad, author: "William Sheqsoiris")
+
+library.addBook(bibly)
+library.addBook(greenMile)
+library.addBook(gamlet)
+    
+library.takeBook(media: bibly, name: "Sergey")
+print(library.customerJournal)
+library.returnBook(media: bibly, name: "Sergey")
+print(library.customerJournal)
+
+
+for media in (library.books + cinema.movies) {
+    print(media.history)
 }
-
-let rectangle = Rectangle()
-let circle = Circle()
-let radius = Radius(radiusName: "Radius N1")
-
-rectangle.circle = circle
-
-Radius.aboutRadius()
-Rectangle.aboutRectangle()
-Circle.aboutCircle()
-
-rectangle.circle?.areaCount()
-rectangle.circle?.area += [radius]
-
-if let radius = rectangle.circle?["Radius N1"] {
-    print(radius.radiusName)
-}
-
-rectangle.circle?["Radius N2"] = Radius(radiusName: "Radius N2")
-if let radius = rectangle.circle?["Radius N2"] {
-    print(radius.radiusName)
-}
-
