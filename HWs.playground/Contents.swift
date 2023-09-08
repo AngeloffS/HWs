@@ -1,251 +1,214 @@
 import UIKit
 
-//1) Повторить то, что есть в видео.
+////1) Повторить то, что есть в видео.
 //
-//var str = "Расширение"
+//var str = "Дженерики"
 //
-////Extension
+////Generic
 //
-//extension String {
-//    func sayHello() {
-//        print("Hello")
+//var stringArray = ["Hi", "Hello", "Good Bye"]
+//var intArray = [1, 2, 3, 4, 5, 3]
+//var doubleArray = [1.2, 1.5, 4.5]
+//
+////Generic ex 1
+//
+//func printElementFromArray<T>(a: [T]) {
+//    for elements in a {
+//        print(elements)
 //    }
 //}
 //
-//var hello = "Hi"
-//hello.sayHello()
+//printElementFromArray(a: stringArray)
+//printElementFromArray(a: intArray)
+//printElementFromArray(a: doubleArray)
 //
-//var a = String()
-//a.sayHello()
+////Generic ex 2
 //
-//"Hi".sayHello()
+//func doNothing<T>(x: T) -> T {
+//    return x
+//}
 //
-////------------Int
+//doNothing(x: "mama")
+//doNothing(x: 1234)
+//doNothing(x: true)
 //
-//extension Int {
-//    var squared: Int {
-//        return (self * self)
+////Generic ex 3
+//
+//var emptuArray = [String]()
+//
+//struct GenericArray<T> {
+//    var items = [T]()
+//    mutating func push(item: T) {
+//        items.append(item)
 //    }
 //}
 //
-//var newInt = 30
+//var myFriendsList = ["Vova", "Bob", "Klim"]
 //
-//newInt.squared
+//var arrays = GenericArray(items: myFriendsList)
 //
-//140.squared
+//arrays.push(item: "Nick")
 //
-////---------Class
 //
-//final class Vova {
-//    var nick = "The swift dev"
+///*
+// 2) Зайти в документацию открыть тему generic и руками набрать пол главы разобраться как это работает
+// */
+//
+//func swapTwoInts(_ a: inout Int, _ b: inout Int) {
+//    let temporaryA = a
+//    a = b
+//    b = temporaryA
 //}
 //
-//let realVova = Vova()
-//realVova.nick
+//var someInt = 3
+//var anotherInt = 107
+//swapTwoInts(&someInt, &anotherInt)
+//print("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
 //
-//extension Vova {
-//    func allSelf() -> String {
-//        return "My name is Vova.My nick - \(nick)"
+//func swapTwoStrings(_ a: inout String, _ b: inout String) {
+//    let temporaryA = a
+//    a = b
+//    b = temporaryA
+//}
+//
+//func swapTwoDoubles(_ a: inout Double, _ b: inout Double) {
+//    let temporaryA = a
+//    a = b
+//    b = temporaryA
+//}
+//
+//func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+//    let temporaryA = a
+//    a = b
+//    b = temporaryA
+//}
+//
+//var someString = "hello"
+//var anotherString = "world"
+//swapTwoValues(&someString, &anotherString)
+//
+//struct IntStack {
+//    var items = [Int]()
+//    mutating func push(_ item: Int) {
+//        items.append(item)
+//    }
+//    mutating func pop() -> Int {
+//        return items.removeLast()
 //    }
 //}
 //
-//var secondVova = Vova()
-//secondVova.allSelf()
+//struct Stack<Element> {
+//    var items = [Element]()
+//    mutating func push(_ item: Element) {
+//        items.append(item)
+//    }
+//    mutating func pop() -> Element {
+//        return items.removeLast()
+//    }
+//}
 //
+//var stackOfStrings = Stack<String>()
+//stackOfStrings.push("uno")
+//stackOfStrings.push("dos")
+//stackOfStrings.push("tres")
+//stackOfStrings.push("cuatro")
+//
+
+/*
+ 3) Создать любой generic для классов, структур, методов, перечислений (по 1 на каждый).
+ */
+
+final class PrintElements<T> {
+    private var element: T
+    
+    init(element: T) {
+        self.element = element
+    }
+    
+    func printElement() {
+        print(element)
+    }
+}
+
+let element = PrintElements(element: "123")
+element.printElement()
+
+struct AddSomething<T> {
+    private var array = [T]()
+    
+    mutating func addInArray(_ item: T) {
+        return array.append(item)
+    }
+}
+
+var arrayStruct = AddSomething<String>()
+arrayStruct.addInArray("Sergo")
+
+enum randomElements<T> {
+    case string(T)
+    case int(T)
+    case double(T)
+    case bool(T)
+}
+
+let randomOne = randomElements.string("Generic")
+let randomTwo = randomElements.int(1)
+let randomThree = randomElements.double(2.3)
+let randomFour = randomElements.bool(true)
+
+
+//4) Написать функцию, которая принимает Generic объект и складывает в массив/словарь (на выбор)
+
+struct Generics<T> {
+    private var genericsArray = [T]()
+    
+    mutating func appendGeneric(_ item: T) -> [T] {
+        genericsArray.append(item)
+        return genericsArray
+    }
+}
+
+var addGeneric = Generics<String>()
+
+addGeneric.appendGeneric("One")
+addGeneric.appendGeneric("Two")
+
+
+//5) Создать класс, который сортирует массивы значений (на ваш выбор) 3 разными способами.
+
+final class Sorter<T> {
+    
+    func sortByAlphabet<T: Comparable>(_ array: [T]) -> [T] {
+        return array.sorted { $0 < $1 }
+    }
+    
+    func sotrByCount(_ array: [String]) -> [String] {
+        return array.sorted { $0.count < $1.count }
+    }
+    
+    func sortByRandom<T>(_ array: [T]) -> [T] {
+        return array.shuffled()
+    }
+}
 
 
 /*
- 2) Зайти в документацию открыть тему extension и руками набрать пол этой главы, разобраться как это работает
- https://swiftbook.ru/content/languageguide/extensions/
+ 6) Написать класс на свой вкус (любые методы, проперти) универсального типа. Используя extension, расширить класс, добавить сабскрипт.
  */
 
-//extension Double {
-//    var km: Double { return self * 1_000.00 }
-//    var m: Double { return self }
-//    var sm: Double { return self / 100.0}
-//    var mm: Double { return self / 1_000.0}
-//    var ft: Double { return self / 3.28084}
-//}
-//
-//let oneInch = 25.4.mm
-//
-//print("Один дюйм это \(oneInch) метра")
-//
-//let threeFeet = 3.ft
-//
-//print("3 фута это \(threeFeet) метра")
-//
-//let aMarathon = 32.km + 195.m
-//
-//print("Марафон имеет длинну \(aMarathon) метра")
-//
-//
-//struct Size {
-//    var width = 0.0, height = 0.0
-//}
-//struct Point {
-//    var x = 0.0, y = 0.0
-//}
-//struct Rect {
-//    var origin = Point()
-//    var size = Size()
-//}
-//
-//let defaultRect = Rect()
-//let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0),
-//                          size: Size(width: 5.0, height: 5.0))
-//
-//extension Rect {
-//    init(center: Point, size: Size) {
-//        let originX = center.x - (size.width / 2)
-//        let originY = center.y - (size.height / 2)
-//        self.init(origin: Point(x: originX, y: originY), size: size)
-//    }
-//}
-//
-//let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
-//                      size: Size(width: 3.0, height: 3.0))
-//
-//extension Int {
-//    func repetitions(task: () -> Void) {
-//        for _ in 0..<self {
-//            task()
-//        }
-//    }
-//}
-//
-//3.repetitions {
-//    print("Hello!")
-//}
-//
-//extension Int {
-//    mutating func square() {
-//        self = self * self
-//    }
-//}
-//var someInt = 3
-//someInt.square()
+final class GuestList<T: Comparable> {
+    private var guestsArray = [T]()
 
-
-
-//3) Расширить String, чтобы принимал сабскрипт вида s[0..<3] и мог также устанавливать значения используя его
-
-extension String {
-    subscript(range: Range<Int>) -> String {
-        return "On holiday \(supermarket) work from \(range.startIndex) to \(range.endIndex)"
+    func guestArrive(_ guest: T) -> [T] {
+        guestsArray.append(guest)
+        return guestsArray
     }
 }
 
-var supermarket = "Spar"
-
-print(supermarket[0..<3])
-
-
-//4) Расширить Int и добавить 3 метода: возведение в квадрат, в куб, в степень
-
-extension Int {
-    
-    var squared: Int {
-        return self * self
-    }
-    
-    var cube: Int {
-        return self * self * self
-    }
-    
-    func raiseNum (degree: Double) -> Double {
-        return pow(Double(self), degree)
+extension GuestList {
+    subscript(_ array: [T]) -> [T] {
+        var sortedArray = array
+        sortedArray.sort()
+        return sortedArray
     }
 }
-
-2.squared
-3.cube
-4.raiseNum(degree: 5)
-
-
-//5) Расширить еще 3 структуры (написать свои, либо взять на свой вкус и в комментах обосновать для чего это было сделано
-
-struct Car {
-    
-    private var miles: Double = 0
-    
-    mutating func setMiles(_ mileage: Double) {
-        miles = mileage
-    }
-}
-
-var maserati = Car()
-maserati.setMiles(42.3)
-
-extension Car {
-    
-    func convertMilesIntoKm() {
-        var milesIntoKm = miles * 1.6
-        print("Пробег авто составляет \(milesIntoKm) километров")
-    }
-}
-
-maserati.convertMilesIntoKm()
-
-struct PoleChudes {
-    
-    func yakubovichSay() {
-        print("Сектор приз на барабане!")
-    }
-}
-
-var poleChudes = PoleChudes()
-poleChudes.yakubovichSay()
-
-extension PoleChudes {
-    
-    func presents(_ answer: Bool) {
-        if answer == true {
-            print("Подарки в студию!")
-        } else {
-            print("Ответ не верный. Ход переходит к другому игроку")
-        }
-    }
-}
-
-poleChudes.presents(true)
-
-extension Bool {
-    
-    var description: String {
-        return self ? "True" : "False"
-    }
-}
-
-let isAndroid = false
-isAndroid.description.capitalized
-
-
-//6) Добавьте проперти, которое возвращает количество символов в числе
-
-extension Int {
-    var countOfNumber: Int {
-        return String(self).count
-    }
-}
-
-let numbers = 777
-numbers.countOfNumber
-
-
-//7) Добавить метод, который говорит, что число положительное или отрицательное
-
-extension Int {
-    
-    func checkNum() {
-        self < 0 ? print("Число отрицательное") : print("Число положительное")
-    }
-}
-
-let numberOne = -1
-numberOne.checkNum()
-
-let numberTwo = 1
-numberTwo.checkNum()
-
-
