@@ -1,214 +1,216 @@
 import UIKit
 
-////1) Повторить то, что есть в видео.
+//1) Повторить код из урока.
 //
-//var str = "Дженерики"
+//protocol OneProtocol {
 //
-////Generic
+//    var name: String { get set }
+//    var age: String { get set }
 //
-//var stringArray = ["Hi", "Hello", "Good Bye"]
-//var intArray = [1, 2, 3, 4, 5, 3]
-//var doubleArray = [1.2, 1.5, 4.5]
+//    //mutating func hello(text: String)
+//}
 //
-////Generic ex 1
+//struct Parents: OneProtocol {
 //
-//func printElementFromArray<T>(a: [T]) {
-//    for elements in a {
-//        print(elements)
+//    var age: String
+//    var name: String
+//}
+//
+//struct Kids: OneProtocol {
+//
+//    var name: String
+//    var age: String
+//}
+//
+//struct Cat: OneProtocol {
+//
+//    var age: String
+//    var name: String
+//}
+//
+//var parents1 = Parents(age: "Jack", name: "28")
+//var parents2 = Parents(age: "Jina", name: "35")
+//var kids = Kids(name: "Masha", age: "5")
+//var cat = Cat(age: "Cat", name: "3")
+//
+//var array: [Any] = [parents1, parents2, cat, kids]
+//
+//for value in array {
+//    if let parent = value as? Parents {
+//        print(parent.name)
+//    } else if let kids = value as? Kids {
+//        print(kids.name)
 //    }
 //}
 //
-//printElementFromArray(a: stringArray)
-//printElementFromArray(a: intArray)
-//printElementFromArray(a: doubleArray)
+//var array1: [OneProtocol] = [parents1, parents2, kids, cat]
 //
-////Generic ex 2
-//
-//func doNothing<T>(x: T) -> T {
-//    return x
-//}
-//
-//doNothing(x: "mama")
-//doNothing(x: 1234)
-//doNothing(x: true)
-//
-////Generic ex 3
-//
-//var emptuArray = [String]()
-//
-//struct GenericArray<T> {
-//    var items = [T]()
-//    mutating func push(item: T) {
-//        items.append(item)
+//func sortFamily(array: [OneProtocol]) {
+//    for value in array {
+//        print("\(value.name) - \(value.age)")
 //    }
 //}
 //
-//var myFriendsList = ["Vova", "Bob", "Klim"]
-//
-//var arrays = GenericArray(items: myFriendsList)
-//
-//arrays.push(item: "Nick")
-//
-//
-///*
-// 2) Зайти в документацию открыть тему generic и руками набрать пол главы разобраться как это работает
-// */
-//
-//func swapTwoInts(_ a: inout Int, _ b: inout Int) {
-//    let temporaryA = a
-//    a = b
-//    b = temporaryA
-//}
-//
-//var someInt = 3
-//var anotherInt = 107
-//swapTwoInts(&someInt, &anotherInt)
-//print("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
-//
-//func swapTwoStrings(_ a: inout String, _ b: inout String) {
-//    let temporaryA = a
-//    a = b
-//    b = temporaryA
-//}
-//
-//func swapTwoDoubles(_ a: inout Double, _ b: inout Double) {
-//    let temporaryA = a
-//    a = b
-//    b = temporaryA
-//}
-//
-//func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
-//    let temporaryA = a
-//    a = b
-//    b = temporaryA
-//}
-//
-//var someString = "hello"
-//var anotherString = "world"
-//swapTwoValues(&someString, &anotherString)
-//
-//struct IntStack {
-//    var items = [Int]()
-//    mutating func push(_ item: Int) {
-//        items.append(item)
-//    }
-//    mutating func pop() -> Int {
-//        return items.removeLast()
-//    }
-//}
-//
-//struct Stack<Element> {
-//    var items = [Element]()
-//    mutating func push(_ item: Element) {
-//        items.append(item)
-//    }
-//    mutating func pop() -> Element {
-//        return items.removeLast()
-//    }
-//}
-//
-//var stackOfStrings = Stack<String>()
-//stackOfStrings.push("uno")
-//stackOfStrings.push("dos")
-//stackOfStrings.push("tres")
-//stackOfStrings.push("cuatro")
-//
+//sortFamily(array: array1)
+
+
+//4) Реализовать структуру IOSCollection и создать в ней copy on write как в уроке - https://youtu.be/QsoqHGgX2rE
+
+struct IosCollection {
+    var integer = 1
+}
+
+final class Ref<T> {
+    var value: T
+    init(value: T) {
+        self.value = value
+    }
+}
+
+struct Box<T> {
+    var ref: Ref<T>
+    
+    init(value: T) {
+        self.ref = Ref(value: value)
+    }
+    var value: T {
+        get {
+            ref.value
+        }
+        set {
+            guard (isKnownUniquelyReferenced(&ref)) else {
+                ref = Ref(value: newValue)
+                return
+            }
+            ref.value = newValue
+        }
+    }
+}
+
+var int = IosCollection()
+var firstBox = Box(value: int)
+var secondBox = firstBox
+secondBox.value.integer = 2
+
+
+//5) Обьяснить в коментах кратко что такое: a) Copy on write, б) isKnownUniquelyReferenced(), в) strong, weak, unowned ссылки.
 
 /*
- 3) Создать любой generic для классов, структур, методов, перечислений (по 1 на каждый).
+ Copy on write(CoW) - оптимизация производительности памяти и ресурсов процессора. Работает она с value - type такими как структуры, массивы, словари. Работает путем создания копий исходных данных при попытки их изменения т.e не потребляя дополнительную память.
+ 
+ isKnownUniquelyReferenced() - метод используемый для проверки того, является ли объект гарантированно ссылаемым. Если метод возвращает true, значит объект имеет только 1 ссылку и эта ссылка не может быть освобождена, пока существует уникальная ссылка.
+ 
+ strong - ссылка на объект, которая гарантирует, что объект не будет удален пока на него ссылается хотя бы одна сильная ссылка.
+ 
+ weak - ссылка на объект, которая указывает, что мы не хотим сохранять объект в памяти, пока на него не будет ссылаться хотя бы одна сильная ссылка
+ 
+unowned - ссылка на объект, которая указывает, что мы предполагаем будет существовать в будущем, но не можем гарантировать сильную ссылку на него всегда.
  */
 
-final class PrintElements<T> {
-    private var element: T
+
+//6) Создать протокол переключатель с окончанием «able» как принято в свифт сообществе.
+
+//7) В протокол перключатель добавить метод «переключать».(Все названия только на английском!).
+
+//8) Создать enum Switcher который конформит (conform) протокол переключатель и у которого 2 кейса off, on.
+
+//9) Создать обьект с выбраным кейсом, далее вызвать у обьекта метод переключения который меняет off на on например.
+
+
+protocol Switchable {
+    mutating func toggle()
+}
+
+enum Switcher: Switchable {
     
-    init(element: T) {
-        self.element = element
-    }
+    case off
+    case on
     
-    func printElement() {
-        print(element)
+    mutating func toggle() {
+        if self == .off {
+            self = .on
+        } else {
+            self = .off
+        }
     }
 }
 
-let element = PrintElements(element: "123")
-element.printElement()
+var switcher = Switcher.on
+switcher.toggle()
 
-struct AddSomething<T> {
-    private var array = [T]()
+
+//10) Создать протокол Movable с методом run, протокол Shootable с методом shoot.
+
+protocol Movable {
+    mutating func run()
+}
+
+protocol Shootable {
+    mutating func shoot()
+}
+
+
+//11) Создать протокол HumanProtocol у которого есть свойство name и который конформит протоколы Movable и Shootable.
+
+protocol HumanProtocol: Movable, Shootable {
+    var name: String { get set }
+}
+
+
+//12) Создать класс Human, подписаться на протокол HumanProtocol и реализовать его, в методы добавить принты.
+
+final class Human: HumanProtocol {
+    var name: String
     
-    mutating func addInArray(_ item: T) {
-        return array.append(item)
+    init(name: String) {
+        self.name = name
+    }
+    
+    func run() {
+        print("Я бегу")
+    }
+    
+    func shoot() {
+        print("Я стреляю")
     }
 }
 
-var arrayStruct = AddSomething<String>()
-arrayStruct.addInArray("Sergo")
-
-enum randomElements<T> {
-    case string(T)
-    case int(T)
-    case double(T)
-    case bool(T)
-}
-
-let randomOne = randomElements.string("Generic")
-let randomTwo = randomElements.int(1)
-let randomThree = randomElements.double(2.3)
-let randomFour = randomElements.bool(true)
-
-
-//4) Написать функцию, которая принимает Generic объект и складывает в массив/словарь (на выбор)
-
-struct Generics<T> {
-    private var genericsArray = [T]()
-    
-    mutating func appendGeneric(_ item: T) -> [T] {
-        genericsArray.append(item)
-        return genericsArray
-    }
-}
-
-var addGeneric = Generics<String>()
-
-addGeneric.appendGeneric("One")
-addGeneric.appendGeneric("Two")
-
-
-//5) Создать класс, который сортирует массивы значений (на ваш выбор) 3 разными способами.
-
-final class Sorter<T> {
-    
-    func sortByAlphabet<T: Comparable>(_ array: [T]) -> [T] {
-        return array.sorted { $0 < $1 }
-    }
-    
-    func sotrByCount(_ array: [String]) -> [String] {
-        return array.sorted { $0.count < $1.count }
-    }
-    
-    func sortByRandom<T>(_ array: [T]) -> [T] {
-        return array.shuffled()
-    }
-}
+var person = Human(name: "Sergey")
+person.run()
+person.shoot()
+person.name
 
 
 /*
- 6) Написать класс на свой вкус (любые методы, проперти) универсального типа. Используя extension, расширить класс, добавить сабскрипт.
+ 13) Создать 2 класса и 1 структуру от каждого по одному экзепляру и все это сложить в один массив. Any, AnyObject, Наследование не использовать.
  */
 
-final class GuestList<T: Comparable> {
-    private var guestsArray = [T]()
+protocol Family {
+    
+}
 
-    func guestArrive(_ guest: T) -> [T] {
-        guestsArray.append(guest)
-        return guestsArray
+final class Man: Family {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
     }
 }
 
-extension GuestList {
-    subscript(_ array: [T]) -> [T] {
-        var sortedArray = array
-        sortedArray.sort()
-        return sortedArray
+final class Girl: Family {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
     }
 }
+
+struct Dog: Family {
+    var name: String
+}
+
+let man = Man(name: "Alex")
+let girl = Girl(name: "Alice")
+let dog = Dog(name: "Charlie")
+
+let arrayFamily: [Family] = [man, girl, dog]
